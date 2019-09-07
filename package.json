@@ -1,0 +1,25 @@
+{
+  "name": "SBG",
+  "version": "1.0.0",
+  "description": "SnowBallGame",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sunnyerika/SBG.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sunnyerika/SBG/issues"
+  },
+  "homepage": "https://github.com/sunnyerika/SBG",
+  "devDependencies": {
+    "yarn": "^1.17.3"
+  }
+}

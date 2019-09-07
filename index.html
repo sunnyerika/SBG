@@ -9,11 +9,11 @@
     var config = {
         type: Phaser.AUTO,//he rendering context automatically tries to use WebGL
         width: 600,
-        height: 900,
+        height: 800,
         physics: {
             default: 'arcade',
             arcade: {
-                gravity: { y: 200 }
+                gravity: { y: 200 } // will affect our player sprite
             }
         },
         scene: {
@@ -26,13 +26,18 @@
     //start the process of bringing Phaser to life.
     var game = new Phaser.Game(config); // instance of a Phaser.Game object to a local variable, configuration object is passed to it
 
-    function preload ()
+    function preload ()//loading assets
     {
         this.load.setBaseURL('http://labs.phaser.io');
 
-        this.load.image('sky', 'assets/skies/space3.png');
+        this.load.image('sky', 'assets/skies/space3.png');//first parameter-asset key
+        //This string is a link to the loaded asset and is what you'll use in your code when creating Game Objects. You're free to use any valid JavaScript string as the key
         this.load.image('logo', 'assets/sprites/phaser3-logo.png');
         this.load.image('red', 'assets/particles/red.png');
+
+        this.load.image('tree1.', 'assets/particles/red.png');
+
+
     }
 
     function create ()

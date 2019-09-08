@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--<script src="https://cdn.jsdelivr.net/npm/phaser@3.15.1/dist/phaser-arcade-physics.min.js"></script>-->
+  <script src="lib/phaser.js"></script>
+</head>
+<body>
+
+<script>
+    var config = {
+        type: Phaser.AUTO,//he rendering context automatically tries to use WebGL
+        width: 600,
+        height: 800,
+        backgroundColor: '#b0fffe',
+        physics: {
+            default: 'arcade',
+            arcade: {
+                gravity: { y: 200 }, // will affect our player sprite
+                debug: false
+            }
+        },
+        scene: {
+            preload: preload,
+            create: create,
+            update: update
+        }
+    };
+
+    //start the process of bringing Phaser to life.
+    var game = new Phaser.Game(config); // instance of a Phaser.Game object to a local variable, configuration object is passed to it
+    var treeBoundaries;
+var World ={
+    velocity: 8
+};
+
+    function preload ()//loading assets
+    {
+        //this.load.setBaseURL('http://labs.phaser.io');
+
+        //this.load.image('sky', 'assets/skies/space3.png');//first parameter-asset key
+        //This string is a link to the loaded asset and is what you'll use in your code when creating Game Objects. You're free to use any valid JavaScript string as the key
+        //this.load.image('logo', 'assets/sprites/phaser3-logo.png');
+        //this.load.image('red', 'assets/particles/red.png');
+
+        this.load.image('skier01', 'Art/Skier_01.png');
+        //this.load.image('palette', 'assets/Palette.png');
+        //this.load.image('palette', 'Art/Palette.png');//creating a new Image Game Object and adding it to the current Scenes display list
+        //The Scene itself has no fixed size and extends infinitely in all directions
+        //this.load.image('bgrd', 'Art/Background.png');
+        this.load.image('treeBorder', 'Art/TreelineBoundaries.png');
+        this.load.image('snow', 'Art/SnowTexture-1.png');
+
+    }
+
+    //build up the Scene by adding a background image
+    var player;
+    var player1;
+    var cursors;
+    var keyW;
+    function create ()
+    {
+        keyW= this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.W);
+        spaceBar = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        cursors = this.input.keyboard.createCursorKeys();
+
+        this.add.image(400, 300, 'sky');
+        //this.add.image(400, 300, 'sky');
+
+        var particles = this.add.particles('red');
+
+        var emitter = particles.createEmitter({
+            speed: 100,
+            scale: { start: 1, end: 0 },
+            blendMode: 'ADD'
+        });
+
+        var logo = this.physics.add.image(400, 100, 'logo');
+
+        logo.setVelocity(100, 200);
+        logo.setBounce(1, 1);
+        logo.setCollideWorldBounds(true);
+
+        emitter.startFollow(logo);
+        this.add.image(300, 400, 'bgrd');
+        this.add.image(600, 600, 'treeBorder');//this.add.image(400, 300, 'skier01');
+        //treeBoundaries = this.physics.add.staticGroup();
+        // this.add.image(600, 100, 'palette');//on top of skier
+        //this.add.image(200, 300, 'snow');
+        //ready player one
+        //we can call sprite on an image too
+        //player1 = this.add.image(300, 400, 'skier01');
+        player = this.physics.add.sprite(400,300, 'skier01');
+        player.setBounce(0.2);
+        player.setCollideWorldBounds(true);
+        //this.physics.enable(player, Phaser.Physics.Arcade);
+
+       this.anims.create({
+            key: 'left',
+            frames: this.anims.generateFrameNumbers('skier01', { start: 0, end: 3 }),
+            frameRate: 10,
+            repeat: -1
+        });
+
+
+     }
+
+    function update ()
+    {
+        if (cursors.left.isDown)
+        {
+            player.body.setVelocityX(-100); // move left
+            //player.setVelocityY(-160);
+            //player.x += 2;
+            //player.anims.play('left', true);
+            player.x -= World.velocity;
+        }
+        else if (cursors.right.isDown) // if the right arrow key is down
+        {
+            //player.body.setVelocityX(200); // move right
+            player.x += World.velocity;
+        }
+
+    }
+</script>
+
+</body>
+</html>

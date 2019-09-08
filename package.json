@@ -13,13 +13,18 @@
     "type": "git",
     "url": "https://github.com/sunnyerika/SBG.git"
   },
-  "author": "",
+  "author": "sunny",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/sunnyerika/SBG/issues"
   },
   "homepage": "https://github.com/sunnyerika/SBG",
   "devDependencies": {
+    "yarn": "^1.17.3"
+  },
+  "dependencies": {
+    "bower": "^1.8.8",
+    "requirejs": "^2.3.6",
     "yarn": "^1.17.3"
   }
 }

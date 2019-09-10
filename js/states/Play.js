@@ -19,6 +19,9 @@ var getSkier;
 var win;
 var key;
 var spaceBar;
+var points100;
+var points100group;
+var max100 =5;
 
 var Play = function(game){
 
@@ -54,6 +57,7 @@ Play.prototype = {
     snowball.anchor.setTo(0.5,0.5);
     snowball.body.tilePadding.set(64,64);
 
+    points100 = game.add.sprite(800,1880,'100');
 
     //create finish line
     finishLine = game.add.sprite(640,20,'finishLine');
@@ -74,6 +78,7 @@ Play.prototype = {
 
     //create a group to hold the fish
     skierGroup = game.add.group();
+    points100group = game.add.group();
 
 
     //make sure when players press UP or DOWN to control the character, the browser screen would not scroll
@@ -138,16 +143,18 @@ endTimer:function(){
    if(game.input.keyboard.isDown(Phaser.Keyboard.F)){
       snowball.body.velocity.y = -600;
       score += 1;
+     scoreText.text='Score:'+score;
     }
 
     //update timer
 	if(timer.running){
-	  timeText.text = 'Time: ' + this.formatTime(Math.round((timeEvent.delay-timer.ms)/1000));
-	}
+      timeText.text = 'Time: ' + this.formatTime(Math.round((timeEvent.delay-timer.ms)/1000));
+    }
 
     if(skierGroup.countLiving()<maxSkier){
       //set the launch point to a random location
       this.launchSkier(game.rnd.integerInRange(300,600),snowball.y-300);
+
     }
     skierGroup.forEachAlive(function(n){
 
@@ -161,10 +168,10 @@ endTimer:function(){
       }else if(distance>=500){
         n.kill();
       }
-
-
     },this);
-    /*if(boy.x<650 && boy.x>550 && boy.y>3050 && boy.y<3200){
+
+
+       /*if(boy.x<650 && boy.x>550 && boy.y>3050 && boy.y<3200){
     game.state.start('GameOver');
     }*/
     console.log(snowball.x);

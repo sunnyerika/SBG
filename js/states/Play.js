@@ -80,9 +80,30 @@ Play.prototype = {
     scoreText.anchor.set(0.5);
     scoreText.fixedToCamera = true;
     scoreText.cameraOffset.setTo(800,50);
-    //game.add.sprite(1150,100,'black')
+
+    //create a count down timer
+	timer = game.time.create();
+	timeEvent = timer.add(Phaser.Timer.SECOND*15,this.endTimer,this);
+	timeText = game.add.text(130,100,this.formatTime(Math.round((timeEvent.delay-timer.ms)/1000)),{font:'Helvetica',fontSize:'24px',fill:'#000'});
+	timeText.anchor.set(0.5);
+	timeText.fixedToCamera = true;
+	timeText.cameraOffset.setTo(100,50);
+	//start the timer
+	timer.start();
+
+    //create eight-way bullets
+    /*weapons = new EightWay(this.game);
+    game.physics.enable(weapons);*/
+
+
 
   },
+
+endTimer:function(){
+	timer.stop();
+	//if time runs out, switch the state
+	game.state.start('GameOver');
+},
 
 
   update:function(){
@@ -104,6 +125,10 @@ Play.prototype = {
       snowball.body.velocity.x = 300;
       //boy.animations.play('right');
     }
+    //update timer
+	if(timer.running){
+	  timeText.text = 'Time: ' + this.formatTime(Math.round((timeEvent.delay-timer.ms)/1000));
+	}
 
     if(skierGroup.countLiving()<maxSkier){
       //set the launch point to a random location
@@ -170,6 +195,10 @@ var Skier = function(game,x,y){
 
   //define constants
   this.body.velocity.y = -200;
+
+
+
+
 };
 
 //Diamond are a type of sprites

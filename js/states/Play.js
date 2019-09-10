@@ -173,7 +173,7 @@ endTimer:function(){
 
     if(points100group.countLiving()<max100){
       //set the launch point to a random location
-      this.spawnStaticSprite(game.rnd.integerInRange(400,600),snowball.y-300);
+      this.spawnStaticSprite(game.rnd.integerInRange(400,600),snowball.y-300, points100group);
     }
 
     points100group.forEachAlive(function(n){
@@ -215,13 +215,13 @@ endTimer:function(){
     return skier;
   },
 
-  spawnStaticSprite:function(x,y){
+  spawnStaticSprite:function(x,y,spritegroup){
     //get the first dead diamond from the Diamond
-    var sprite = points100group.getFirstDead();
+    var sprite = spritegroup.getFirstDead();
     //if there aren't any available, create a new one
     if(sprite === null){
       sprite = new StaticSprite(this.game);//passing spritename
-      points100group.add(sprite);
+      spritegroup.add(sprite);
     }
     //revive the diamond
     sprite.revive();

@@ -26,6 +26,8 @@ var spriteName;
 var ifSpeed = 0;
 var iceTimer;
 var iceEvent;
+var snowLayer;
+var treeLayer;
 
 
 var Play = function(game){
@@ -45,10 +47,10 @@ Play.prototype = {
     //game.stage.backgroundColor = "#4488AA";
     //create new Tilemap object
     map = game.add.tilemap('mapSheet');
-    map.addTilesetImage('mapElements','mapSprite',32,32);
+    map.addTilesetImage('mapElements','mapSprite',32,32); //x2 //64x64 for the lake
 
     //set seabedLayer to collide with other objects
-    snowLayer = map.createLayer('Snow');
+    snowLayer = map.createLayer('Snow');//"Snow" declared as a layer in the tilemap
     treeLayer = map.createLayer('treeAndRock');
     game.add.existing(treeLayer);
     treeLayer.resizeWorld();
@@ -56,6 +58,8 @@ Play.prototype = {
 
     //add snowball
     snowball = game.add.sprite(640,3500,'snowball');
+    snowball.scale.setTo(2, 2);
+
     //enable physics
     game.physics.enable(snowball);
     snowball.body.collideWorldBounds = true;

@@ -160,7 +160,7 @@ endTimer:function(){
     }
 
     //accelerate on space down
-   if(game.input.keyboard.isDown(Phaser.Keyboard.F)){
+   if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
       snowball.body.velocity.y = -600;
       score += 1;
      scoreText.text='Score:'+score;

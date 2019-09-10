@@ -12,10 +12,10 @@ Menu.prototype = {
 		instructText1.anchor.set(0.5);
 		var instructText2 = game.add.text(game.width/2,game.height/2+56,'to control the SnowBall and roll up skiers',{font:'Helvetica',fontSize:'24px',fill:'#fff'});
 		instructText2.anchor.set(0.5);
-		var instructText3 = game.add.text(game.width/2,game.height/2+112,'Use SPACEBAR to create an avalanche but you only have one chance',{font:'Helvetica',fontSize:'24px',fill:'#fff'});
+		var instructText3 = game.add.text(game.width/2,game.height/2+112,'Use SPACEBAR to speed up',{font:'Helvetica',fontSize:'24px',fill:'#fff'});
 		instructText3.anchor.set(0.5);
 		//how to switch the state
-		var PlayText = game.add.text(game.width/2,game.height*0.9,'Press SPACEBAR to start',{font:'Helvetica',fontSize:'42px',fill:'#fff'});
+		var PlayText = game.add.text(game.width/2,game.height*0.9,'Press F to start',{font:'Helvetica',fontSize:'42px',fill:'#fff'});
 		PlayText.anchor.set(0.5);
 		//add music
 		//bgmusic = game.sound.add('mainMusic');
@@ -28,7 +28,7 @@ Menu.prototype = {
 	},
 	update:function(){
 		//check for SPACEBAR input
-		if(game.input.keyboard.justPressed(Phaser.Keyboard.SPACEBAR)){
+		if(game.input.keyboard.justPressed(Phaser.Keyboard.F)){
 			game.state.start('Ready');
 		}
 

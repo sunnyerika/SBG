@@ -156,8 +156,9 @@ endTimer:function(){
     if(skierGroup.countLiving()<maxSkier){
       //set the launch point to a random location
       this.launchSkier(game.rnd.integerInRange(300,600),snowball.y-300);
-
     }
+
+
     skierGroup.forEachAlive(function(n){
       //make player could collect skiers
       var distance = this.game.math.distance(n.x,n.y,snowball.x,snowball.y);
@@ -173,7 +174,7 @@ endTimer:function(){
 
     if(points100group.countLiving()<max100){
       //set the launch point to a random location
-      this.spawnStaticSprite(game.rnd.integerInRange(400,600),snowball.y-300, points100group);
+      this.spawnStaticSprite(game.rnd.integerInRange(200,900),snowball.y-300, points100group);
     }
 
     points100group.forEachAlive(function(n){

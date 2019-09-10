@@ -21,7 +21,8 @@ var key;
 var spaceBar;
 var points100;
 var points100group;
-var max100 =5;
+var max100 =2;
+var spriteName;
 
 var Play = function(game){
 
@@ -57,7 +58,7 @@ Play.prototype = {
     snowball.anchor.setTo(0.5,0.5);
     snowball.body.tilePadding.set(64,64);
 
-    points100 = game.add.sprite(800,1880,'100');
+    //points100 = game.add.sprite(800,1880,'100');
 
     //create finish line
     finishLine = game.add.sprite(640,20,'finishLine');
@@ -123,6 +124,7 @@ endTimer:function(){
     //make collision works
     game.physics.arcade.collide(snowball,treeLayer);
     game.physics.arcade.collide(skierGroup,treeLayer);
+    game.physics.arcade.collide(points100group,treeLayer);
     //game.physics.arcade.overlap(weapons,fishGroup,beatFish,null,this);
     game.physics.arcade.overlap(snowball,floor,winner,null,this);
 
@@ -157,12 +159,29 @@ endTimer:function(){
 
     }
     skierGroup.forEachAlive(function(n){
-
       //make player could collect skiers
       var distance = this.game.math.distance(n.x,n.y,snowball.x,snowball.y);
       if(distance<=30){
         n.kill();
         score += 10;
+        scoreText.text='Score:'+score;
+        //getDiamond.play();
+      }else if(distance>=500){
+        n.kill();
+      }
+    },this);
+
+    if(points100group.countLiving()<max100){
+      //set the launch point to a random location
+      this.spawnStaticSprite(game.rnd.integerInRange(400,600),snowball.y-300);
+    }
+
+    points100group.forEachAlive(function(n){
+      //make player could collect skiers
+      var distance = this.game.math.distance(n.x,n.y,snowball.x,snowball.y);
+      if(distance<=30){
+        n.kill();
+        score += 100;
         scoreText.text='Score:'+score;
         //getDiamond.play();
       }else if(distance>=500){
@@ -180,8 +199,6 @@ endTimer:function(){
 
   },
 
-
-
   launchSkier:function(x,y){
     //get the first dead diamond from the Diamond
     var skier = skierGroup.getFirstDead();
@@ -197,12 +214,30 @@ endTimer:function(){
     skier.y = y;
     return skier;
   },
+
+  spawnStaticSprite:function(x,y){
+    //get the first dead diamond from the Diamond
+    var sprite = points100group.getFirstDead();
+    //if there aren't any available, create a new one
+    if(sprite === null){
+      sprite = new StaticSprite(this.game);//passing spritename
+      points100group.add(sprite);
+    }
+    //revive the diamond
+    sprite.revive();
+    //move the diamond to the given coordinate
+    sprite.x = x;
+    sprite.y = y;
+    return sprite;
+  },
+
   formatTime:function(s){
     //refer to https://codepen.io/peacq/pen/WxLqpW
     var minutes = '0' + Math.floor(s/60);
     var seconds = '0' + (s - minutes*60);
     return minutes.substr(-2)+':'+seconds.substr(-2);
   },
+
 
 };
 
@@ -218,14 +253,26 @@ var Skier = function(game,x,y){
   //define constants
   this.body.velocity.y = -200;
 
-
-
-
 };
 
+var StaticSprite = function(game,x,y){
+  Phaser.Sprite.call(this,game,x,y,'100');
+  this.anchor.setTo(0.5,0.5);
+  //this.game.physics.enable(this,Phaser.Physics.ARCADE);
+  //this.scale.setTo(0.5,0.5);
+
+  //define constants
+  //this.body.velocity.y = -200;
+
+};
 //Diamond are a type of sprites
 Skier.prototype = Object.create(Phaser.Sprite.prototype);
 Skier.prototype.constructor = Skier;
+
+StaticSprite.prototype = Object.create(Phaser.Sprite.prototype);
+StaticSprite.prototype.constructor = StaticSprite;
+
+
 
 
 //when player reaches the coin fountain, the game ends

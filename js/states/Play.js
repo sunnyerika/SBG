@@ -17,11 +17,18 @@ var beaten;
 var attack;
 var getSkier;
 var win;
+var key;
+var spaceBar;
+
 var Play = function(game){
 
 };
 Play.prototype = {
   create:function(){
+
+    key = game.input.keyboard;
+    this.jumpKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
     //ensure that when sprites are rendered,they are done so using integer positions
     this.game.renderer.renderSession.roundPixels = true;
 
@@ -81,6 +88,7 @@ Play.prototype = {
     scoreText.fixedToCamera = true;
     scoreText.cameraOffset.setTo(800,50);
 
+
     //create a count down timer
 	timer = game.time.create();
 	timeEvent = timer.add(Phaser.Timer.SECOND*15,this.endTimer,this);
@@ -125,6 +133,13 @@ endTimer:function(){
       snowball.body.velocity.x = 300;
       //boy.animations.play('right');
     }
+
+    //accelerate on space down
+   if(game.input.keyboard.isDown(Phaser.Keyboard.F)){
+      snowball.body.velocity.y = -600;
+      score += 1;
+    }
+
     //update timer
 	if(timer.running){
 	  timeText.text = 'Time: ' + this.formatTime(Math.round((timeEvent.delay-timer.ms)/1000));

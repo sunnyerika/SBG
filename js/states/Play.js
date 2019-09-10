@@ -23,6 +23,10 @@ var points100;
 var points100group;
 var max100 =2;
 var spriteName;
+var ifSpeed = 0;
+var iceTimer;
+var iceEvent;
+
 
 var Play = function(game){
 
@@ -37,7 +41,7 @@ Play.prototype = {
     this.game.renderer.renderSession.roundPixels = true;
 
     game.physics.startSystem(Phaser.Physics.Arcade);
-    game.world.setBounds(0,0,640,1920);
+    game.world.setBounds(0,0,1280,3840);
     //game.stage.backgroundColor = "#4488AA";
     //create new Tilemap object
     map = game.add.tilemap('mapSheet');
@@ -51,7 +55,7 @@ Play.prototype = {
     map.setCollisionByExclusion([],true,'treeAndRock');
 
     //add snowball
-    snowball = game.add.sprite(640,1880,'snowball');
+    snowball = game.add.sprite(640,3500,'snowball');
     //enable physics
     game.physics.enable(snowball);
     snowball.body.collideWorldBounds = true;
@@ -81,6 +85,16 @@ Play.prototype = {
     skierGroup = game.add.group();
     points100group = game.add.group();
 
+     //create a group of lakes
+    lakes = game.add.group();
+    lakes.enableBody = true;
+    lakes.create(750,2900,'lake');
+    lakes.create(425,2700,'lake');
+    lakes.create(600,2350,'lake');
+    lakes.create(655,1550,'lake');
+    lakes.create(500,1240,'lake');
+    lakes.create(480,850,'lake');
+
 
     //make sure when players press UP or DOWN to control the character, the browser screen would not scroll
     game.input.keyboard.addKeyCapture(Phaser.Keyboard.UP);
@@ -105,6 +119,7 @@ Play.prototype = {
 	//start the timer
 	timer.start();
 
+
     //create eight-way bullets
     /*weapons = new EightWay(this.game);
     game.physics.enable(weapons);*/
@@ -127,11 +142,14 @@ endTimer:function(){
     game.physics.arcade.collide(points100group,treeLayer);
     //game.physics.arcade.overlap(weapons,fishGroup,beatFish,null,this);
     game.physics.arcade.overlap(snowball,floor,winner,null,this);
+    game.physics.arcade.overlap(snowball,lakes,iceSpeed,null,this);
+
 
     //set the player's velocity
     snowball.body.velocity.x = 0;
-    snowball.body.velocity.y = -300;
-
+    if(ifSpeed ==0){
+    	snowball.body.velocity.y = -300;
+    }
     //make animations work
     if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
       snowball.body.velocity.x = -300;
@@ -283,4 +301,21 @@ function winner(snowball,floor){
   //boy.animations.play('win');
   game.state.start('GameOver');
 
+};
+
+function iceSpeed(snowball,lakes){
+	ifSpeed = 1;
+	snowball.body.velocity.y = -600;
+	//ice speed up timer
+	iceTimer = game.time.create();
+	iceEvent= iceTimer.add(Phaser.Timer.SECOND*1,speedRetrieve,this);
+	iceTimer.start();
+
+
+};
+
+function speedRetrieve(){
+	iceTimer.stop();
+	ifSpeed = 0;
 }
+

@@ -153,6 +153,7 @@ endTimer:function(){
       timeText.text = 'Time: ' + this.formatTime(Math.round((timeEvent.delay-timer.ms)/1000));
     }
 
+	/*
     if(skierGroup.countLiving()<maxSkier){
       //set the launch point to a random location
       this.launchSkier(game.rnd.integerInRange(300,600),snowball.y-300);
@@ -171,7 +172,7 @@ endTimer:function(){
         n.kill();
       }
     },this);
-
+*/
     if(points100group.countLiving()<max100){
       //set the launch point to a random location
       this.spawnStaticSprite(game.rnd.integerInRange(200,900),snowball.y-300, points100group);

@@ -80,12 +80,7 @@ Play.prototype = {
     scoreText.anchor.set(0.5);
     scoreText.fixedToCamera = true;
     scoreText.cameraOffset.setTo(800,50);
-
-    //create eight-way bullets
-    /*weapons = new EightWay(this.game);
-    game.physics.enable(weapons);*/
-
-
+    //game.add.sprite(1150,100,'black')
 
   },
 
@@ -175,10 +170,6 @@ var Skier = function(game,x,y){
 
   //define constants
   this.body.velocity.y = -200;
-
-
-
-
 };
 
 //Diamond are a type of sprites

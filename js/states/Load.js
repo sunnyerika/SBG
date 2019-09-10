@@ -18,6 +18,7 @@ Load.prototype ={
 		game.load.image('skierRight','img/Skier_Right.png');
 		game.load.image('finishLine','img/Finish_Line.png');
 		game.load.image('lake','img/Lake.png');
+		game.load.image('black', 'img/black.png');
 		//game.load.image('rectangle','img/rectangle.png');
 		//load music
 		/*game.load.audio('mainMusic','sound/mainMusic.mp3');

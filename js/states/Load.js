@@ -12,6 +12,9 @@ Load.prototype ={
 		game.load.image('mapSprite','img/mapsheet.png',64,64);
 		//load player, fish, diamond, bullet assets
 		game.load.image('snowball','img/Snow_ball.png');
+    game.load.spritesheet('snowBallAnimation0', 'img/snowBallAnimation0.png', 32, 32);//width and height of each frame
+    game.load.spritesheet('snowBallAnimation1', 'img/Size0_1.png', 32, 32);
+
 		game.load.image('skier1','img/Skier_01.png');
 		//game.load.atlas('boysheet','img/boy.png','img/boy.json');
 		game.load.image('skierLeft','img/Skier_Left.png');

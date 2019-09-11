@@ -28,44 +28,67 @@ var iceTimer;
 var iceEvent;
 var snowLayer;
 var treeLayer;
-
+var rollingSnowBall;
+var rollingSnowBallLong;
+var snowballRolling0;
+var snowBall0;
 
 var Play = function(game){
 
 };
 Play.prototype = {
   create:function(){
-
-    key = game.input.keyboard;
+     key = game.input.keyboard;
     this.jumpKey = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
     //ensure that when sprites are rendered,they are done so using integer positions
     this.game.renderer.renderSession.roundPixels = true;
 
-    game.physics.startSystem(Phaser.Physics.Arcade);
+    game.physics.startSystem(Phaser.Physics.Arcade);//arcade gives us velocity
     game.world.setBounds(0,0,1280,3840);
     //game.stage.backgroundColor = "#4488AA";
     //create new Tilemap object
     map = game.add.tilemap('mapSheet');
     map.addTilesetImage('mapElements','mapSprite',32,32); //x2 //64x64 for the lake
+    //level = mapElements/mapSprite
+    // map = mapsheet
 
     //set seabedLayer to collide with other objects
     snowLayer = map.createLayer('Snow');//"Snow" declared as a layer in the tilemap
     treeLayer = map.createLayer('treeAndRock');
     game.add.existing(treeLayer);
-    treeLayer.resizeWorld();
+    treeLayer.resizeWorld();//we start with pixels of the world in the config like 500x500 for example, then we resize the game world while keeping the small window
     map.setCollisionByExclusion([],true,'treeAndRock');
 
     //add snowball
-    snowball = game.add.sprite(640,3500,'snowball');
+    snowball = game.add.sprite(640,3500,'snowball');//position coordinates
+    //we could use tiles: 7 tiles in, 13 tiles down:
+    //(7*32, 1f3*64)
     snowball.scale.setTo(2, 2);
+    snowball.anchor.setTo(1,1);
 
+    snowBall0 = game.add.sprite(600, 3500, 'snowBallAnimation0');//x, y, key, displaying the first frame by default
+    snowBall0.animations.add('snowBallRolling', [0,1,2]);//1st para: choose a name for the animation/2nd:frames used for animation with index starting at 0
+    game.physics.arcade.enable(snowBall0);
+    snowBall0.body.collideWorldBounds = true;
+    snowBall0.anchor.setTo(1,1);
+    //snowBall0.body.gravity.y = 96;//for jumping to come down
+    game.camera.follow(snowBall0);
+
+    //rollingSnowBallLong.frame = 0;
+    //rollingSnowBall.idleFrame = 0;
+   // var rollSize0 = this.rollingSnowBall.animations.add("roll0", [0, 1, 2]);
+    //this.rollingSnowBall.play("roll0", 10, true);//ih the update function
+    //var roll = rollingSnowBall.animations.add('roll');
+    //rollingSnowBall.animations.play('roll', 30, true);
+
+    /*
     //enable physics
     game.physics.enable(snowball);
     snowball.body.collideWorldBounds = true;
     snowball.anchor.setTo(0.5,0.5);
     snowball.body.tilePadding.set(64,64);
-
+*/
     //points100 = game.add.sprite(800,1880,'100');
 
     //create finish line
@@ -104,7 +127,7 @@ Play.prototype = {
     game.input.keyboard.addKeyCapture(Phaser.Keyboard.UP);
     game.input.keyboard.addKeyCapture(Phaser.Keyboard.DOWN);
     //make camera follow the marine boy
-    game.camera.follow(snowball);
+    //game.camera.follow(snowball);
 
     //add text to show the player's score
     scoreText=game.add.text(1150,100,'Score:0',{font:'Helvetica',fontSize:'24px',fill:'#000'});
@@ -123,13 +146,6 @@ Play.prototype = {
 	//start the timer
 	timer.start();
 
-
-    //create eight-way bullets
-    /*weapons = new EightWay(this.game);
-    game.physics.enable(weapons);*/
-
-
-
   },
 
 endTimer:function(){
@@ -144,22 +160,48 @@ endTimer:function(){
     game.physics.arcade.collide(snowball,treeLayer);
     game.physics.arcade.collide(skierGroup,treeLayer);
     game.physics.arcade.collide(points100group,treeLayer);
+    game.physics.arcade.collide(snowBall0,treeLayer);
     //game.physics.arcade.overlap(weapons,fishGroup,beatFish,null,this);
     game.physics.arcade.overlap(snowball,floor,winner,null,this);
     game.physics.arcade.overlap(snowball,lakes,iceSpeed,null,this);
+    game.physics.arcade.overlap(snowBall0,lakes,iceSpeed,null,this);
+    game.physics.arcade.overlap(snowBall0,floor,winner,null,this);
 
 
-    //set the player's velocity
-    snowball.body.velocity.x = 0;
+    snowBall0.animations.play('snowBallRolling', 10, true);
+   // snowBall0.body.velocity.y = -200; //or 0 if we only want it to move when a key is down
+    //this.rollingSnowBall.animations.play("roll0", 10, true);
+    snowBall0.body.velocity.x = 0;
     if(ifSpeed ==0){
-    	snowball.body.velocity.y = -300;
+      snowBall0.body.velocity.y = -200;//to make it move automatically w/0 key down
     }
     //make animations work
     if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
-      snowball.body.velocity.x = -300;
+      snowBall0.body.velocity.x = -200;
       //boy.animations.play('left');
     }else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
-      snowball.body.velocity.x = 300;
+      snowBall0.body.velocity.x = 200;
+      //boy.animations.play('right');
+    }
+    if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
+      snowBall0.body.velocity.y = -600;
+      score += 1;
+      scoreText.text='Score:'+score;
+    }
+
+
+    /*
+    //set the player's velocity
+    snowball.body.velocity.x = 0;
+    if(ifSpeed ==0){
+    	snowball.body.velocity.y = -200;
+    }
+    //make animations work
+    if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
+      snowball.body.velocity.x = -200;
+      //boy.animations.play('left');
+    }else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
+      snowball.body.velocity.x = 200;
       //boy.animations.play('right');
     }
 
@@ -169,7 +211,7 @@ endTimer:function(){
       score += 1;
      scoreText.text='Score:'+score;
     }
-
+  */
     //update timer
 	if(timer.running){
       timeText.text = 'Time: ' + this.formatTime(Math.round((timeEvent.delay-timer.ms)/1000));
@@ -310,6 +352,7 @@ function winner(snowball,floor){
 function iceSpeed(snowball,lakes){
 	ifSpeed = 1;
 	snowball.body.velocity.y = -600;
+  score += 1;
 	//ice speed up timer
 	iceTimer = game.time.create();
 	iceEvent= iceTimer.add(Phaser.Timer.SECOND*1,speedRetrieve,this);

@@ -1,0 +1,36 @@
+{"frames": {
+
+"S1.png":
+{
+	"frame": {"x":67,"y":1,"w":32,"h":30},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":32,"h":30},
+	"sourceSize": {"w":32,"h":32}
+},
+"S2.png":
+{
+	"frame": {"x":1,"y":1,"w":31,"h":31},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":31,"h":31},
+	"sourceSize": {"w":31,"h":31}
+},
+"S3.png":
+{
+	"frame": {"x":34,"y":1,"w":31,"h":31},
+	"rotated": false,
+	"trimmed": false,
+	"spriteSourceSize": {"x":0,"y":0,"w":31,"h":31},
+	"sourceSize": {"w":31,"h":31}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "snowBallAnimation0.png",
+	"format": "RGBA8888",
+	"size": {"w":100,"h":33},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:c5711b98f4885e4f769115d7bd6413db:34bf283b05cdb1e2467ce83c8cd13ef9:c837d0cec241e78b1724385671c78b50$"
+}
+}

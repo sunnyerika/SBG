@@ -32,6 +32,7 @@ var rollingSnowBall;
 var rollingSnowBallLong;
 var snowballRolling0;
 var snowBall0;
+var collision = false;
 
 var Play = function(game){
 
@@ -67,11 +68,15 @@ Play.prototype = {
     snowball.scale.setTo(2, 2);
     snowball.anchor.setTo(1,1);
 
-    snowBall0 = game.add.sprite(600, 3500, 'snowBallAnimation0');//x, y, key, displaying the first frame by default
+    //snowBall0 = game.add.sprite(600, 3500, 'snowBallAnimation0');//x, y, key, displaying the first frame by default
+    snowBall0 = game.add.sprite(600, 3500, 'snowBallAnimation1');
     snowBall0.animations.add('snowBallRolling', [0,1,2]);//1st para: choose a name for the animation/2nd:frames used for animation with index starting at 0
+    snowBall0.animations.add('collide1', [3,4,5]);
+
     game.physics.arcade.enable(snowBall0);
     snowBall0.body.collideWorldBounds = true;
     snowBall0.anchor.setTo(1,1);
+
     //snowBall0.body.gravity.y = 96;//for jumping to come down
     game.camera.follow(snowBall0);
 
@@ -161,14 +166,25 @@ endTimer:function(){
     game.physics.arcade.collide(skierGroup,treeLayer);
     game.physics.arcade.collide(points100group,treeLayer);
     game.physics.arcade.collide(snowBall0,treeLayer);
+    //game.physics.arcade.collide(snowBall0,treeLayer, snowBall0.animations.play('collide1', 10, true), null, this);
+    //game.physics.arcade.collide(snowBall0,treeLayer, this.collide1, null, this);
+    //this.game.physics.arcade.collide(someSprite, someGroup);//collision with group
     //game.physics.arcade.overlap(weapons,fishGroup,beatFish,null,this);
+    //this.game.physics.arcade.collide(sprite1, sprite2, this.someFunction, null, this);
+   //collision between the two sprites, but it will also trigger someFunction
+
     game.physics.arcade.overlap(snowball,floor,winner,null,this);
     game.physics.arcade.overlap(snowball,lakes,iceSpeed,null,this);
     game.physics.arcade.overlap(snowBall0,lakes,iceSpeed,null,this);
     game.physics.arcade.overlap(snowBall0,floor,winner,null,this);
 
+    if (!collision){
+      snowBall0.animations.play('snowBallRolling', 10, true);
+    } else {
+      snowBall0.animations.play('collide1', 10, true);
+    }
 
-    snowBall0.animations.play('snowBallRolling', 10, true);
+    //snowBall0.animations.play('collide1', 10, true);
    // snowBall0.body.velocity.y = -200; //or 0 if we only want it to move when a key is down
     //this.rollingSnowBall.animations.play("roll0", 10, true);
     snowBall0.body.velocity.x = 0;
@@ -178,6 +194,7 @@ endTimer:function(){
     //make animations work
     if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
       snowBall0.body.velocity.x = -200;
+      collision = true;
       //boy.animations.play('left');
     }else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
       snowBall0.body.velocity.x = 200;
@@ -331,6 +348,11 @@ var StaticSprite = function(game,x,y){
   //this.body.velocity.y = -200;
 
 };
+
+var collide1 = function(){
+  snowBall0.animations.play('collide1', 10, true);
+};
+
 //Diamond are a type of sprites
 Skier.prototype = Object.create(Phaser.Sprite.prototype);
 Skier.prototype.constructor = Skier;

@@ -1,0 +1,20 @@
+{"frames": {
+
+"Size0_1.png":
+{
+	"frame": {"x":1,"y":1,"w":193,"h":32},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":0,"w":193,"h":32},
+	"sourceSize": {"w":196,"h":32}
+}},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "snowAnimation1.png",
+	"format": "RGBA8888",
+	"size": {"w":195,"h":34},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:5192b5dbb1dfa5348d456ae22d201b48:d405a45b3ae28228cc5c3f4d3e5ed6ce:43344723e0a3e05ac8bf70282beca40c$"
+}
+}

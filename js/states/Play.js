@@ -28,11 +28,14 @@ var iceTimer;
 var iceEvent;
 var snowLayer;
 var treeLayer;
+var lakes;
 var rollingSnowBall;
 var rollingSnowBallLong;
 var snowballRolling0;
 var snowBall0;
 var collision = false;
+var tile;
+
 
 var Play = function(game){
 
@@ -46,30 +49,41 @@ Play.prototype = {
     this.game.renderer.renderSession.roundPixels = true;
 
     game.physics.startSystem(Phaser.Physics.Arcade);//arcade gives us velocity
-    game.world.setBounds(0,0,1280,3840);
+    game.world.setBounds(0,0,2560,7680);
     //game.stage.backgroundColor = "#4488AA";
     //create new Tilemap object
     map = game.add.tilemap('mapSheet');
-    map.addTilesetImage('mapElements','mapSprite',32,32); //x2 //64x64 for the lake
+    map.addTilesetImage('TileSet1','mapSprite',32,32); //x2 //64x64 for the lake
     //level = mapElements/mapSprite
     // map = mapsheet
 
     //set seabedLayer to collide with other objects
-    snowLayer = map.createLayer('Snow');//"Snow" declared as a layer in the tilemap
+    snowLayer = map.createLayer('snow');//"Snow" declared as a layer in the tilemap
     treeLayer = map.createLayer('treeAndRock');
     game.add.existing(treeLayer);
     treeLayer.resizeWorld();//we start with pixels of the world in the config like 500x500 for example, then we resize the game world while keeping the small window
+    //game.add.existing(lakeLayer);
+    //lakeLayer = map.createLayer('lake');
+    //map.createFromObjects('lake',10,'lake',0,true,true,lakeLayer);
+    lakes = game.add.group();
+    lakes.enableBody = true;
+    map.createFromObjects('lake',10,'lake',0,true,true,lakes);
     map.setCollisionByExclusion([],true,'treeAndRock');
+    map.setCollisionBetween[1300,1303];
+    map.setCollisionBetween[1340,1343];
+    map.setCollisionBetween[1380,1383];
+    map.setCollisionBetween[1420,1423];
+    //map.setCollisionByExclusion([],true,'lake');
 
     //add snowball
-    snowball = game.add.sprite(640,3500,'snowball');//position coordinates
+    //snowball = game.add.sprite(640,3500,'snowball');//position coordinates
     //we could use tiles: 7 tiles in, 13 tiles down:
     //(7*32, 1f3*64)
-    snowball.scale.setTo(2, 2);
-    snowball.anchor.setTo(1,1);
+    //snowball.scale.setTo(2, 2);
+    //snowball.anchor.setTo(1,1);
 
     //snowBall0 = game.add.sprite(600, 3500, 'snowBallAnimation0');//x, y, key, displaying the first frame by default
-    snowBall0 = game.add.sprite(600, 3500, 'snowBallAnimation1');
+    snowBall0 = game.add.sprite(1280, 7580, 'snowBallAnimation1');
     snowBall0.animations.add('snowBallRolling', [0,1,2]);//1st para: choose a name for the animation/2nd:frames used for animation with index starting at 0
     snowBall0.animations.add('collide1', [3,4,5]);
 
@@ -79,7 +93,7 @@ Play.prototype = {
 
     //snowBall0.body.gravity.y = 96;//for jumping to come down
     game.camera.follow(snowBall0);
-
+    game.camera.roundPixels = true;
     //rollingSnowBallLong.frame = 0;
     //rollingSnowBall.idleFrame = 0;
    // var rollSize0 = this.rollingSnowBall.animations.add("roll0", [0, 1, 2]);
@@ -118,14 +132,14 @@ Play.prototype = {
     points100group = game.add.group();
 
      //create a group of lakes
-    lakes = game.add.group();
+    /*lakes = game.add.group();
     lakes.enableBody = true;
     lakes.create(750,2900,'lake');
     lakes.create(425,2700,'lake');
     lakes.create(600,2350,'lake');
     lakes.create(655,1550,'lake');
     lakes.create(500,1240,'lake');
-    lakes.create(480,850,'lake');
+    lakes.create(480,850,'lake');*/
 
 
     //make sure when players press UP or DOWN to control the character, the browser screen would not scroll
@@ -143,7 +157,7 @@ Play.prototype = {
 
     //create a count down timer
 	timer = game.time.create();
-	timeEvent = timer.add(Phaser.Timer.SECOND*15,this.endTimer,this);
+	timeEvent = timer.add(Phaser.Timer.MINUTE*1+Phaser.Timer.SECOND*15,this.endTimer,this);
 	timeText = game.add.text(130,100,this.formatTime(Math.round((timeEvent.delay-timer.ms)/1000)),{font:'Helvetica',fontSize:'24px',fill:'#000'});
 	timeText.anchor.set(0.5);
 	timeText.fixedToCamera = true;
@@ -162,7 +176,6 @@ endTimer:function(){
 
   update:function(){
     //make collision works
-    game.physics.arcade.collide(snowball,treeLayer);
     game.physics.arcade.collide(skierGroup,treeLayer);
     game.physics.arcade.collide(points100group,treeLayer);
     game.physics.arcade.collide(snowBall0,treeLayer);
@@ -173,8 +186,6 @@ endTimer:function(){
     //this.game.physics.arcade.collide(sprite1, sprite2, this.someFunction, null, this);
    //collision between the two sprites, but it will also trigger someFunction
 
-    game.physics.arcade.overlap(snowball,floor,winner,null,this);
-    game.physics.arcade.overlap(snowball,lakes,iceSpeed,null,this);
     game.physics.arcade.overlap(snowBall0,lakes,iceSpeed,null,this);
     game.physics.arcade.overlap(snowBall0,floor,winner,null,this);
 
@@ -189,7 +200,7 @@ endTimer:function(){
     //this.rollingSnowBall.animations.play("roll0", 10, true);
     snowBall0.body.velocity.x = 0;
     if(ifSpeed ==0){
-      snowBall0.body.velocity.y = -200;//to make it move automatically w/0 key down
+      snowBall0.body.velocity.y = -300;//to make it move automatically w/0 key down
     }
     //make animations work
     if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
@@ -256,12 +267,12 @@ endTimer:function(){
 */
     if(points100group.countLiving()<max100){
       //set the launch point to a random location
-      this.spawnStaticSprite(game.rnd.integerInRange(200,900),snowball.y-300, points100group);
+      this.spawnStaticSprite(game.rnd.integerInRange(200,900),snowBall0.y-300, points100group);
     }
 
     points100group.forEachAlive(function(n){
       //make player could collect skiers
-      var distance = this.game.math.distance(n.x,n.y,snowball.x,snowball.y);
+      var distance = this.game.math.distance(n.x,n.y,snowBall0.x,snowBall0.y);
       if(distance<=30){
         n.kill();
         score += 100;
@@ -276,8 +287,10 @@ endTimer:function(){
        /*if(boy.x<650 && boy.x>550 && boy.y>3050 && boy.y<3200){
     game.state.start('GameOver');
     }*/
-    console.log(snowball.x);
-    console.log(snowball.y);
+    console.log(snowBall0.x);
+    console.log(snowBall0.y);
+    console.log(snowBall0.body.velocity.y);
+    console.log(map.layer);
 
 
   },
@@ -364,16 +377,16 @@ StaticSprite.prototype.constructor = StaticSprite;
 
 
 //when player reaches the coin fountain, the game ends
-function winner(snowball,floor){
+function winner(snowBall0,floor){
   //win.play();
   //boy.animations.play('win');
   game.state.start('GameOver');
 
 };
 
-function iceSpeed(snowball,lakes){
+function iceSpeed(snowBall0,lake){
 	ifSpeed = 1;
-	snowball.body.velocity.y = -600;
+	snowBall0.body.velocity.y = -600;
   score += 1;
 	//ice speed up timer
 	iceTimer = game.time.create();

@@ -39,6 +39,7 @@ var collision = false;
 var numberOfCollisionsWithSkiers = 0;
 var snowBallNew;
 var snowBallState;
+var snowBallAtlas;
 
 
 var Play = function(game){
@@ -65,6 +66,8 @@ Play.prototype = {
     game.add.existing(treeLayer);
     treeLayer.resizeWorld();//we start with pixels of the world in the config like 500x500 for example, then we resize the game world while keeping the small window
     map.setCollisionByExclusion([],true,'treeAndRock');
+
+    snowBallAtlas = game.add.sprite(game.width/2,game.height/2,'atlas','alienGreen');
 
     skier = game. add.sprite(550, 2000, 'skier1');
     skier2 = game. add.sprite(750, 1500, 'skier1');

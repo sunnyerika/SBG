@@ -25,7 +25,7 @@ Load.prototype ={
 		game.load.image('finishLine','img/Finish_Line.png');
 		game.load.image('lake','img/Lake.png');
     game.load.image('100','img/100.png');
-    
+
 
 
 		//game.load.image('rectangle','img/rectangle.png');

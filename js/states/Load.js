@@ -13,8 +13,9 @@ Load.prototype ={
 		//load player, fish, diamond, bullet assets
 		game.load.image('snowball','img/Snow_ball.png');
     game.load.spritesheet('snowBallAnimation0', 'img/snowBallAnimation0.png', 32, 32);//width and height of each frame
-    game.load.spritesheet('snowBallAnimation1', 'img/Size0_1.png', 32, 32);
+    game.load.spritesheet('snowBallAnimation1', 'img/Size1.png', 64, 64);
     game.load.spritesheet('snowBallAnimation2', 'img/Size2.png', 128, 128);
+    game.load.spritesheet('snowBallAnimation3', 'img/Size3.png', 256, 256);
     game.load.spritesheet('snowBallAnimation', 'img/snowBallSpriteSheet.png', 32, 32);
 
 		game.load.image('skier1','img/Skier_01.png');

@@ -2,6 +2,7 @@
 var map;
 var snowball;
 //var maxFish = 3;
+var skier;
 var skierGroup;
 var maxSkier = 3;
 var score = 0;
@@ -32,7 +33,10 @@ var rollingSnowBall;
 var rollingSnowBallLong;
 var snowballRolling0;
 var snowBall0;
+var snowBall2;
 var collision = false;
+var numberOfCollisions = 0;
+var snowBallNew;
 
 var Play = function(game){
 
@@ -44,8 +48,10 @@ Play.prototype = {
 
     //ensure that when sprites are rendered,they are done so using integer positions
     this.game.renderer.renderSession.roundPixels = true;
+    //game.physics.p2.setImpactEvents(true);
 
-    game.physics.startSystem(Phaser.Physics.Arcade);//arcade gives us velocity
+    //game.physics.startSystem(Phaser.Physics.Arcade);//arcade gives us velocity
+    game.physics.startSystem(Phaser.Physics.ARCADE);
     game.world.setBounds(0,0,1280,3840);
     //game.stage.backgroundColor = "#4488AA";
     //create new Tilemap object
@@ -61,6 +67,9 @@ Play.prototype = {
     treeLayer.resizeWorld();//we start with pixels of the world in the config like 500x500 for example, then we resize the game world while keeping the small window
     map.setCollisionByExclusion([],true,'treeAndRock');
 
+    skier = game. add.sprite(640, 2000, 'skier1');
+    //skier.body.immovable = true;
+    game.physics.arcade.enable(skier);
     //add snowball
     snowball = game.add.sprite(640,3500,'snowball');//position coordinates
     //we could use tiles: 7 tiles in, 13 tiles down:
@@ -68,15 +77,27 @@ Play.prototype = {
     snowball.scale.setTo(2, 2);
     snowball.anchor.setTo(1,1);
 
+
     //snowBall0 = game.add.sprite(600, 3500, 'snowBallAnimation0');//x, y, key, displaying the first frame by default
-    snowBall0 = game.add.sprite(600, 3500, 'snowBallAnimation1');
+    snowBall0 = game.add.sprite(600, 3500, 'snowBallAnimation');
     snowBall0.animations.add('snowBallRolling', [0,1,2]);//1st para: choose a name for the animation/2nd:frames used for animation with index starting at 0
     snowBall0.animations.add('collide1', [3,4,5]);
+    snowBall0.animations.add('collide2', [6,7,8]);
+
+    snowBall2 = game.add.sprite(500, 2900, 'snowBallAnimation2');
+
+    snowBallNew = game.add.sprite(500, 2900, 'snowBallAnimation2');
+    game.physics.arcade.enable(snowBallNew);
+    snowBallNew.animations.add('newRolling', [0,1,2]);
+
 
     game.physics.arcade.enable(snowBall0);
     snowBall0.body.collideWorldBounds = true;
     snowBall0.anchor.setTo(1,1);
-
+    //snowBall0.body.createBodyCallback(treeLayer, myCollisionCallback, this);
+    //game.physics.p2.setImpactEvents(true);
+    snowBall0.body.onCollide = new Phaser.Signal();
+    snowBall0.body.onCollide.add(myCollisionCallback, this);
     //snowBall0.body.gravity.y = 96;//for jumping to come down
     game.camera.follow(snowBall0);
 
@@ -162,6 +183,7 @@ endTimer:function(){
 
   update:function(){
     //make collision works
+    //game.physics.p2.setImpactEvents(true);
     game.physics.arcade.collide(snowball,treeLayer);
     game.physics.arcade.collide(skierGroup,treeLayer);
     game.physics.arcade.collide(points100group,treeLayer);
@@ -173,16 +195,35 @@ endTimer:function(){
     //this.game.physics.arcade.collide(sprite1, sprite2, this.someFunction, null, this);
    //collision between the two sprites, but it will also trigger someFunction
 
+    //game.physics.arcade.collide(snowBall0,treeLayer, myCollisionCallback, myProcessCallback, this);
+    //game.physics.arcade.collide(snowBall0,treeLayer, myCollisionCallback, null, this);
+    //snowBall0.body.collides(treeLayer, myCollisionCallback, this);
+
     game.physics.arcade.overlap(snowball,floor,winner,null,this);
     game.physics.arcade.overlap(snowball,lakes,iceSpeed,null,this);
     game.physics.arcade.overlap(snowBall0,lakes,iceSpeed,null,this);
     game.physics.arcade.overlap(snowBall0,floor,winner,null,this);
+    game.physics.arcade.overlap(snowBall0,floor,myCollisionCallback,null,this);
 
-    if (!collision){
+    //game.physics.arcade.collide(snowBall0,skier);
+    game.physics.arcade.collide(skier, snowBall0);
+
+    if(!collision){
       snowBall0.animations.play('snowBallRolling', 10, true);
-    } else {
-      snowBall0.animations.play('collide1', 10, true);
+      //numberOfCollisions += 1;
     }
+    /*
+    if(collision){
+      snowBall0.animations.play('collide1', 10, true);
+      numberOfCollisions += 1;
+    }
+
+    /*
+    if (numberOfCollisions == 0){
+      snowBall0.animations.play('snowBallRolling', 10, true);
+    }
+    */
+
 
     //snowBall0.animations.play('collide1', 10, true);
    // snowBall0.body.velocity.y = -200; //or 0 if we only want it to move when a key is down
@@ -194,7 +235,8 @@ endTimer:function(){
     //make animations work
     if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
       snowBall0.body.velocity.x = -200;
-      collision = true;
+      snowBall0.animations.play('collide1', 10, true);
+      //collision = true;
       //boy.animations.play('left');
     }else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
       snowBall0.body.velocity.x = 200;
@@ -321,7 +363,9 @@ endTimer:function(){
     return minutes.substr(-2)+':'+seconds.substr(-2);
   },
 
-
+  hit:function(){
+    numberOfCollisions = 1;
+  }
 };
 
 
@@ -371,14 +415,43 @@ function winner(snowball,floor){
 
 };
 
-function iceSpeed(snowball,lakes){
+function myCollisionCallback(obj1, obj2){
+  /*
+  if (collision){
+    snowBall0.animations.play('collide1', 10, true);
+  }*/
+  numberOfCollisions += 1;
+  //obj2.animations.play('collide1', 10, true);
+ // obj2 =
+
+  }
+
+function myProcessCallback(snowBall0,treeLayer){
+  collision = true;
+}
+
+function iceSpeed(snowball,lake){
+  var x;
+  var y;
 	ifSpeed = 1;
-	snowball.body.velocity.y = -600;
+	//snowball.body.velocity.y = -600;
+	snowBall0.body.velocity.y = -600;
+	snowBall0.kill();
+	collision = true;
+	snowBall0.animations.play('collide1', 10, true);
   score += 1;
+  x = lake.x;
+  y = lake.y;
+  snowBallNew.x = x;
+  snowBallNew.y = y;
+  snowBallNew.body.velocity.y = -100;
+  snowBallNew.animations.play('newRolling', 10, true);
+
 	//ice speed up timer
 	iceTimer = game.time.create();
 	iceEvent= iceTimer.add(Phaser.Timer.SECOND*1,speedRetrieve,this);
 	iceTimer.start();
+
 
 
 };

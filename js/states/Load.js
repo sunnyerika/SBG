@@ -8,8 +8,8 @@ Load.prototype ={
 		game.load.path = 'assets/';
 		//game.load.atlas('atlas','img/cloneSheet.png','img/cloneSheet.json');
 		//load tilemap
-		game.load.tilemap('mapSheet','img/map.json',null,Phaser.Tilemap.TILED_JSON);//little trees with rocks - all obsticles
-		game.load.image('mapSprite','img/mapsheet.png',64,64);
+		game.load.tilemap('mapSheet','img/newMapWithLake2.json',null,Phaser.Tilemap.TILED_JSON);//little trees with rocks - all obsticles
+		game.load.image('mapSprite','img/TileSet1.png',32,32);
 		//load player, fish, diamond, bullet assets
 		game.load.image('snowball','img/Snow_ball.png');
     game.load.spritesheet('snowBallAnimation0', 'img/snowBallAnimation0.png', 32, 32);//width and height of each frame

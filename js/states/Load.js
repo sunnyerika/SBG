@@ -14,6 +14,8 @@ Load.prototype ={
 		game.load.image('snowball','img/Snow_ball.png');
     game.load.spritesheet('snowBallAnimation0', 'img/snowBallAnimation0.png', 32, 32);//width and height of each frame
     game.load.spritesheet('snowBallAnimation1', 'img/Size0_1.png', 32, 32);
+    game.load.spritesheet('snowBallAnimation2', 'img/Size2.png', 128, 128);
+    game.load.spritesheet('snowBallAnimation', 'img/snowBallSpriteSheet.png', 32, 32);
 
 		game.load.image('skier1','img/Skier_01.png');
 		//game.load.atlas('boysheet','img/boy.png','img/boy.json');

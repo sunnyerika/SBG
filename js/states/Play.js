@@ -247,20 +247,25 @@ endTimer:function(){
     skier.body.velocity.y = -80;
     skier2.body.velocity.y = -80;
     snowBall0.body.velocity.x = 0;
+    snowBallNew.body.velocity.x = 0;
 
     if(ifSpeed ==0){
-      snowBall0.body.velocity.y = -300;//to make it move automatically w/0 key down
+      snowBall0.body.velocity.y = -200;//to make it move automatically w/0 key down
+      snowBallNew.body.velocity.y = -200;
     }
     //make animations work
     if(game.input.keyboard.isDown(Phaser.Keyboard.LEFT)){
       snowBall0.body.velocity.x = -200;
+      snowBallNew.body.velocity.x = -200;
 
     }else if(game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)){
       snowBall0.body.velocity.x = 200;
+      snowBallNew.body.velocity.x = 200;
       //boy.animations.play('right');
     }
     if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
       snowBall0.body.velocity.y = -600;
+      snowBallNew.body.velocity.y = -600;
       score += 1;
       scoreText.text='Score:'+score;
     }

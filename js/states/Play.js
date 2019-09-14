@@ -261,7 +261,6 @@ Play.prototype = {
     //game.physics.arcade.collide(skierGroup,treeLayer);
     game.physics.arcade.collide(snowBall0,treeLayer,snowCollideTree,null,this);
 
-
     game.physics.arcade.collide(snowBall0,skier1,snowCollideSkier,null,this);
     game.physics.arcade.collide(snowBall0,skier2,snowCollideSkier,null,this);
     game.physics.arcade.collide(snowBall0,skier3,snowCollideSkier,null,this);
@@ -401,7 +400,6 @@ Play.prototype = {
       snowball.body.velocity.x = 200;
       //boy.animations.play('right');
     }
-
     //accelerate on space down
    if(game.input.keyboard.isDown(Phaser.Keyboard.SPACEBAR)){
       snowball.body.velocity.y = -600;
@@ -419,8 +417,6 @@ Play.prototype = {
         //set the launch point to a random location
         this.launchSkier(game.rnd.integerInRange(300,600),snowball.y-300);
       }
-
-
       skierGroup.forEachAlive(function(n){
         //make player could collect skiers
         var distance = this.game.math.distance(n.x,n.y,snowball.x,snowball.y);
@@ -438,7 +434,6 @@ Play.prototype = {
       //set the launch point to a random location
       this.spawnStaticSprite(game.rnd.integerInRange(200,900),snowBall0.y-300, points100group);
     }
-
     points100group.forEachAlive(function(n){
       //make player could collect skiers
       var distance = this.game.math.distance(n.x,n.y,snowBall0.x,snowBall0.y);
@@ -471,7 +466,6 @@ Play.prototype = {
   /*render:function(){
   	game.debug.body(snowBall0);
   },
-
   launchSkier:function(x,y){
     //get the first dead diamond from the Diamond
     var skier = skierGroup.getFirstDead();
@@ -487,7 +481,6 @@ Play.prototype = {
     skier.y = y;
     return skier;
   },
-
   spawnStaticSprite:function(x,y,spritegroup){
     //get the first dead diamond from the Diamond
     var sprite = spritegroup.getFirstDead();
@@ -564,14 +557,12 @@ function winner(snowBall0,floor){
 };
 
 /*function myCollisionCallback(obj1, obj2){
-
  // if (collision){
     //snowBall0.animations.play('collide1', 10, true);
   //}
   numberOfCollisions += 1;
   //obj2.animations.play('collide1', 10, true);
  // obj2 =
-
 }*/
 
 /*function myProcessCallback(snowBall0,treeLayer){
@@ -612,10 +603,8 @@ function changeSnowBall(snowball, velocity){
 /*function onSkierCollision(snowball,skier){
   var x;
   var y;
-
   var a;
   var b;
-
   a = skier.x;
   b = skier.y;
   ifSpeed = 1;
@@ -627,28 +616,22 @@ function changeSnowBall(snowball, velocity){
   numberOfCollisionsWithSkiers ++;
   //snowBall0.animations.play('collide1', 10, true);
   score += 100;
-
   if(numberOfCollisionsWithSkiers ===1){
-
     snowBall1.x = a;
     snowBall1.y = b;
     snowBall1.body.velocity.y = -300;
     ifSpeed =-300;
     animateSnowBall(snowBall1);
     game.camera.follow(snowBall1);
-
   } else if (numberOfCollisionsWithSkiers ===2){
     //changeSnowBall(snowBall2, -500);
-
     snowBall2.x = x;
     snowBall2.y = y;
     snowBall2.body.velocity.y = -500;
     ifSpeed = -500;
     animateSnowBall(snowBall2);
     game.camera.follow(snowBall2);
-
     snowBall1.kill();
-
   }*/
 
 
@@ -661,7 +644,6 @@ switch (numberOfCollisionsWithSkiers){
     animateSnowBall(snowBall1);
     game.camera.follow(snowBall1);
     break;
-
   case 2:
     snowBall2.x = x;
     snowBall2.y = y;
@@ -681,12 +663,10 @@ snowBallNew.body.velocity.y = -100;
 animateSnowBall(snowBallNew);
 //snowBallNew.animations.play('newRolling', 10, true);
 game.camera.follow(snowBallNew);
-
 //ice speed up timer
 iceTimer = game.time.create();
 iceEvent= iceTimer.add(Phaser.Timer.SECOND*1,speedRetrieve,this);
 iceTimer.start();
-
 };*/
 
 /*function createSnowBall(snowball,spritesheet){
@@ -717,4 +697,3 @@ function speedRetrieve(){
   iceTimer.stop();
   ifSpeed = 0;
 }
-

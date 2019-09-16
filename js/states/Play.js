@@ -132,7 +132,7 @@ Play.prototype = {
     //snowball.anchor.setTo(1,1);
 
     //snowBall0 = game.add.sprite(600, 3500, 'snowBallAnimation0');//x, y, key, displaying the first frame by default
-    snowBall0 = game.add.sprite(1280, 75800, 'snowBallAtlas','Snow_ball_0_01');
+    snowBall0 = game.add.sprite(1280, 75800, 'snowBallAtlasNew','Snow_ball_0_01');
     game.physics.enable(snowBall0);
     snowBall0.body.collideWorldBounds = true;
     snowBall0.anchor.setTo(0.5,0.5);
@@ -141,7 +141,7 @@ Play.prototype = {
     snowBall0.animations.add('collide2',[6,7,8],10,true);
     snowBall0.animations.add('collide3',[9,10,11],10,true);
     snowBall0.animations.add('collide4',[12,13,14],10,true);
-    skier1 = game. add.sprite(550, 5500, 'skier1');
+    skier1 = game. add.sprite(1500, 74200, 'skier1');
     skier2 = game. add.sprite(800, 4500, 'skier1');
     skier3 = game. add.sprite(800, 3500, 'skier1');
     skier4 = game. add.sprite(500, 4800, 'skier1');
@@ -720,12 +720,25 @@ function snowCollideTrees(snowBall0,trees){
   //score -= 100;
   trees.body.immovable = true;
   trees.body.moves = false;
+  booleanHitRock = true;
+
+  if(numberOfCollisionsWithSkiers>0){
+    numberOfCollisionsWithSkiers --;
+    score -= 200;
+    scoreText.text='Score:'+score;
+  }
 
 }
 function snowCollideRocks(snowBall0,rocks){
   //score -= 100;
   rocks.body.immovable = true;
   rocks.body.moves = false;
+
+  if(numberOfCollisionsWithSkiers>0){
+    numberOfCollisionsWithSkiers --;
+    score -= 200;
+    scoreText.text='Score:'+score;
+  }
 
 }
 

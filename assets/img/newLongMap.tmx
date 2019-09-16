@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="80" height="2400" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="134">
+<map version="1.2" tiledversion="1.2.4" orientation="orthogonal" renderorder="right-down" width="80" height="2400" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="186">
  <tileset firstgid="1" name="TileSet2" tilewidth="32" tileheight="32" tilecount="2464" columns="56">
   <image source="TileSet2.png" width="1792" height="1408"/>
  </tileset>
@@ -4939,6 +4939,45 @@
   <object id="126" x="1676" y="488" width="64" height="64"/>
   <object id="127" x="976" y="1280" width="64" height="64"/>
   <object id="128" x="852" y="73880" width="64" height="64"/>
+  <object id="147" x="1400" y="69584" width="64" height="64"/>
+  <object id="148" x="1168" y="67648" width="64" height="64"/>
+  <object id="149" x="1828" y="67364" width="64" height="64"/>
+  <object id="150" x="1688" y="64892" width="64" height="64"/>
+  <object id="151" x="680" y="63592" width="64" height="64"/>
+  <object id="152" x="1480" y="60384" width="64" height="64"/>
+  <object id="153" x="692" y="59424" width="64" height="64"/>
+  <object id="154" x="1040" y="56648" width="64" height="64"/>
+  <object id="155" x="1580" y="54048" width="64" height="64"/>
+  <object id="156" x="1164" y="50188" width="64" height="64"/>
+  <object id="157" x="884" y="47328" width="64" height="64"/>
+  <object id="158" x="1472" y="46180" width="64" height="64"/>
+  <object id="159" x="1584" y="42728" width="64" height="64"/>
+  <object id="160" x="1180" y="39188" width="64" height="64"/>
+  <object id="161" x="1768" y="36640" width="64" height="64"/>
+  <object id="162" x="1140" y="36268" width="64" height="64"/>
+  <object id="163" x="1068" y="34568" width="64" height="64"/>
+  <object id="164" x="820" y="33376" width="64" height="64"/>
+  <object id="165" x="944" y="31324" width="64" height="64"/>
+  <object id="166" x="1748" y="31604" width="64" height="64"/>
+  <object id="167" x="1252" y="29196" width="64" height="64"/>
+  <object id="168" x="1028" y="26740" width="64" height="64"/>
+  <object id="169" x="876" y="25060" width="64" height="64"/>
+  <object id="170" x="1380" y="22440" width="64" height="64"/>
+  <object id="171" x="852" y="18628" width="64" height="64"/>
+  <object id="172" x="1624" y="17548" width="64" height="64"/>
+  <object id="173" x="1140" y="17096" width="64" height="64"/>
+  <object id="174" x="1664" y="16172" width="64" height="64"/>
+  <object id="175" x="880" y="15612" width="64" height="64"/>
+  <object id="176" x="1608" y="14888" width="64" height="64"/>
+  <object id="177" x="2040" y="14240" width="64" height="64"/>
+  <object id="178" x="1032" y="11844" width="64" height="64"/>
+  <object id="179" x="1644" y="11540" width="64" height="64"/>
+  <object id="180" x="1000" y="8908" width="64" height="64"/>
+  <object id="181" x="1696" y="8488" width="64" height="64"/>
+  <object id="182" x="1808" y="5256" width="64" height="64"/>
+  <object id="183" x="1016" y="3996" width="64" height="64"/>
+  <object id="184" x="1240" y="4104" width="64" height="64"/>
+  <object id="185" x="1096" y="1980" width="64" height="64"/>
  </objectgroup>
  <objectgroup id="5" name="lake">
   <object id="129" x="1632" y="73856" width="228" height="252"/>
@@ -4946,5 +4985,18 @@
   <object id="131" x="654" y="70666" width="228" height="252"/>
   <object id="132" x="590" y="1382" width="228" height="252"/>
   <object id="133" x="1494" y="2410" width="228" height="252"/>
+  <object id="134" x="1014" y="68450" width="228" height="252"/>
+  <object id="135" x="1606" y="64014" width="228" height="252"/>
+  <object id="136" x="1054" y="62018" width="228" height="252"/>
+  <object id="137" x="1598" y="59182" width="228" height="252"/>
+  <object id="138" x="1010" y="55106" width="228" height="252"/>
+  <object id="139" x="1386" y="50378" width="228" height="252"/>
+  <object id="140" x="798" y="39478" width="228" height="252"/>
+  <object id="141" x="1062" y="29578" width="228" height="252"/>
+  <object id="142" x="746" y="24538" width="228" height="252"/>
+  <object id="143" x="506" y="21222" width="228" height="252"/>
+  <object id="144" x="1694" y="15078" width="228" height="252"/>
+  <object id="145" x="518" y="9214" width="228" height="252"/>
+  <object id="146" x="1550" y="4566" width="228" height="252"/>
  </objectgroup>
 </map>

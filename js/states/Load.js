@@ -9,10 +9,12 @@ Load.prototype ={
     //game.load.atlas('atlas','img/cloneSheet.png','img/cloneSheet.json');
     //load tilemap
 
-    game.load.tilemap('mapSheet','img/newMapWithLake2.json',null,Phaser.Tilemap.TILED_JSON);//little trees with rocks - all obsticles
-    game.load.image('mapSprite','img/TileSet1.png',32,32);
+    game.load.tilemap('mapSheet','img/newLongMap.json',null,Phaser.Tilemap.TILED_JSON);//little trees with rocks - all obsticles
+    game.load.image('mapSprite','img/TileSet2.png',32,32);
     //load player, fish, diamond, bullet assets
+    game.load.image('tree','img/snowyTree.png');
     game.load.image('snowball','img/Snow_ball.png');
+    game.load.image('rock','img/rock.png');
     game.load.atlas('snowBallAtlas','img/snowBallAtlas.png','img/snowBallAtlas.json');
     game.load.spritesheet('snowBallAnimation0', 'img/snowBallAnimation0.png', 32, 32);//width and height of each frame
     game.load.spritesheet('snowBallAnimation1', 'img/Size1.png', 64, 64);
@@ -25,7 +27,7 @@ Load.prototype ={
     game.load.image('skierLeft','img/Skier_Left.png');
     game.load.image('skierRight','img/Skier_Right.png');
     game.load.image('finishLine','img/Finish_Line.png');
-    game.load.image('lake','img/Lake.png');
+    game.load.image('lake','img/lake.png');
     game.load.image('100','img/100.png');
 
 

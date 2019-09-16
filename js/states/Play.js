@@ -39,6 +39,8 @@ var iceEvent;
 var snowLayer;
 var treeLayer;
 var lakes;
+var rocks;
+var trees;
 var rollingSnowBall;
 var rollingSnowBallLong;
 var snowballRolling0;
@@ -74,11 +76,11 @@ Play.prototype = {
 
 
     game.physics.startSystem(Phaser.Physics.Arcade);//arcade gives us velocity
-    game.world.setBounds(0,0,2560,7680);
+    game.world.setBounds(0,0,2560,76800);
     //game.stage.backgroundColor = "#4488AA";
     //create new Tilemap object
     map = game.add.tilemap('mapSheet');
-    map.addTilesetImage('TileSet1','mapSprite',32,32); //x2 //64x64 for the lake
+    map.addTilesetImage('TileSet2','mapSprite',32,32); //x2 //64x64 for the lake
     //level = mapElements/mapSprite
     // map = mapsheet
 
@@ -86,7 +88,7 @@ Play.prototype = {
 
     //set seabedLayer to collide with other objects
     snowLayer = map.createLayer('snow');//"Snow" declared as a layer in the tilemap
-    treeLayer = map.createLayer('treeAndRock');
+    treeLayer = map.createLayer('treeLine');
     game.add.existing(treeLayer);
     treeLayer.resizeWorld();//we start with pixels of the world in the config like 500x500 for example, then we resize the game world while keeping the small window
     //game.add.existing(lakeLayer);
@@ -94,12 +96,32 @@ Play.prototype = {
     //map.createFromObjects('lake',10,'lake',0,true,true,lakeLayer);
     lakes = game.add.group();
     lakes.enableBody = true;
-    map.createFromObjects('lake',10,'lake',0,true,true,lakes);
-    map.setCollisionByExclusion([],true,'treeAndRock');
-    map.setCollisionBetween[1300,1303];
-    map.setCollisionBetween[1340,1343];
-    map.setCollisionBetween[1380,1383];
-    map.setCollisionBetween[1420,1423];
+    rocks = game.add.group();
+    rocks.enableBody = true;
+    trees = game.add.group();
+    trees.enableBody = true;
+    trees.setAll('body.immovable',true);
+    map.createFromObjects('lake',15,'lake',0,true,true,lakes);
+    map.createFromObjects('rock',12,'rock',0,true,true,rocks);
+    map.createFromObjects('tree',2331,'tree',0,true,true,trees);
+    map.setCollisionByExclusion([],true,'treeLine');
+    map.setCollisionBetween[2047,2050];
+    map.setCollisionBetween[2103,2106];
+    map.setCollisionBetween[2159,2162];
+    map.setCollisionBetween[2215,2218];
+    map.setCollisionBetween[2271,2274];
+    map.setCollisionBetween[2327,2330];
+    map.setCollisionBetween[1794,1795];
+    map.setCollisionBetween[1850,1851];
+    map.setCollisionBetween[2058,2065];
+    map.setCollisionBetween[2114,2121];
+    map.setCollisionBetween[2170,2177];
+    map.setCollisionBetween[2226,2233];
+    map.setCollisionBetween[2282,2289];
+    map.setCollisionBetween[2338,2345];
+    map.setCollisionBetween[2394,2401];
+    map.setCollisionBetween[2450,2457];
+
     //map.setCollisionByExclusion([],true,'lake');
 
     //add snowball
@@ -110,7 +132,7 @@ Play.prototype = {
     //snowball.anchor.setTo(1,1);
 
     //snowBall0 = game.add.sprite(600, 3500, 'snowBallAnimation0');//x, y, key, displaying the first frame by default
-    snowBall0 = game.add.sprite(1280, 7580, 'snowBallAtlas','Snow_ball_0_01');
+    snowBall0 = game.add.sprite(1280, 75800, 'snowBallAtlas','Snow_ball_0_01');
     game.physics.enable(snowBall0);
     snowBall0.body.collideWorldBounds = true;
     snowBall0.anchor.setTo(0.5,0.5);
@@ -139,6 +161,7 @@ Play.prototype = {
     game.physics.arcade.enable(skier8);
     game.physics.arcade.enable(skier9);
     game.physics.arcade.enable(skier10);
+
 
     //snowBall0 = game.add.sprite(600, 3500, 'snowBallAnimation');
     //snowBall0.animations.add('snowBallRolling', [0,1,2]);//1st para: choose a name for the animation/2nd:frames used for animation with index starting at 0
@@ -260,7 +283,8 @@ Play.prototype = {
     //game.physics.arcade.collide(skierGroup,treeLayer);
     //game.physics.arcade.collide(skierGroup,treeLayer);
     game.physics.arcade.collide(snowBall0,treeLayer,snowCollideTree,null,this);
-
+    game.physics.arcade.collide(snowBall0,trees,snowCollideTrees,null,this);
+    game.physics.arcade.collide(snowBall0,rocks,snowCollideRocks,null,this);
     game.physics.arcade.collide(snowBall0,skier1,snowCollideSkier,null,this);
     game.physics.arcade.collide(snowBall0,skier2,snowCollideSkier,null,this);
     game.physics.arcade.collide(snowBall0,skier3,snowCollideSkier,null,this);
@@ -692,6 +716,19 @@ function snowCollideTree(snowBall0,treeLayer){
   }
 
 }
+function snowCollideTrees(snowBall0,trees){
+  //score -= 100;
+  trees.body.immovable = true;
+  trees.body.moves = false;
+
+}
+function snowCollideRocks(snowBall0,rocks){
+  //score -= 100;
+  rocks.body.immovable = true;
+  rocks.body.moves = false;
+
+}
+
 
 function speedRetrieve(){
   iceTimer.stop();

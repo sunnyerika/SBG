@@ -142,8 +142,8 @@ Play.prototype = {
     snowBall0.animations.add('collide3',[9,10,11],10,true);
     snowBall0.animations.add('collide4',[12,13,14],10,true);
     skier1 = game. add.sprite(1500, 74200, 'skier1');
-    skier2 = game. add.sprite(800, 4500, 'skier1');
-    skier3 = game. add.sprite(800, 3500, 'skier1');
+    skier2 = game. add.sprite(1300, 72000, 'skier1');
+    skier3 = game. add.sprite(800, 70000, 'skier1');
     skier4 = game. add.sprite(500, 4800, 'skier1');
     skier5 = game. add.sprite(750, 3800, 'skier1');
     skier6 = game. add.sprite(550, 5800, 'skier1');
@@ -324,6 +324,32 @@ Play.prototype = {
       scoreText.text='Score:'+score;
 
     }
+
+    else if(numberOfCollisionsWithSkiers === 1&&ifSpeed ==0){
+      snowBall0.animations.play('collide1');//skier collision animation
+      snowBall0.body.setSize(50,50,10,10);
+      snowBall0.body.velocity.y = -300;
+
+
+    }
+    else if(numberOfCollisionsWithSkiers ===2 &&ifSpeed ==0){
+      snowBall0.animations.play('collide2');
+      snowBall0.body.setSize(90,90,20,15);
+      snowBall0.body.velocity.y = -400;
+    }
+    else if(numberOfCollisionsWithSkiers ===3&&ifSpeed ==0){
+      snowBall0.animations.play('collide3', 10, true);
+      snowBall0.body.setSize(180,180,40,40);
+      snowBall0.body.velocity.y = -500;
+    }
+    else if((numberOfCollisionsWithSkiers == 9|| numberOfCollisionsWithSkiers ==10)&&ifSpeed ==0){
+      snowBall0.animations.play('collide4', 10, true);
+      snowBall0.body.setSize(440,440,25,30);
+      snowBall0.body.velocity.y = -600;
+    }
+
+    /*
+
     else if(numberOfCollisionsWithSkiers >= 1&& numberOfCollisionsWithSkiers <=2&&ifSpeed ==0){
       snowBall0.animations.play('collide1');//skier collision animation
       snowBall0.body.setSize(50,50,10,10);
@@ -346,7 +372,7 @@ Play.prototype = {
       snowBall0.body.setSize(440,440,25,30);
       snowBall0.body.velocity.y = -600;
     }
-
+*/
 
     skier1.body.velocity.y = -150;
     skier2.body.velocity.y = -150;

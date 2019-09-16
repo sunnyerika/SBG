@@ -4,7 +4,7 @@ var boy = null;
 //wait for browser to load before creating Phaser game
 window.onload = function(){
   //define game
-  game = new Phaser.Game(1600,900,Phaser.AUTO,'game');
+  game = new Phaser.Game(1800,900,Phaser.AUTO,'game');
 
   //define states
   game.state.add('Load',Load);

@@ -45,6 +45,7 @@ var rollingSnowBall;
 var rollingSnowBallLong;
 var snowballRolling0;
 var snowBall0;
+var damagedSkier;
 //var snowBall1;
 //var snowBall2;
 //var snowBall3;
@@ -141,6 +142,14 @@ Play.prototype = {
     snowBall0.animations.add('collide2',[6,7,8],10,true);
     snowBall0.animations.add('collide3',[9,10,11],10,true);
     snowBall0.animations.add('collide4',[12,13,14],10,true);
+
+    damagedSkier = game.add.sprite(1400, 75600, 'damagedSkierAtlas', 'Damage_01');
+    game.physics.enable(damagedSkier);
+    damagedSkier.body.collideWorldBounds = true;
+    damagedSkier.anchor.setTo(0.5,0.5);
+    damagedSkier.animations.add('flyingSkier',[0,1,2,3,4,5,6,7],10,true);
+
+
     skier1 = game. add.sprite(1500, 74200, 'skier1');
     skier2 = game. add.sprite(1300, 72000, 'skier1');
     skier3 = game. add.sprite(800, 70000, 'skier1');
@@ -279,6 +288,9 @@ Play.prototype = {
 
 
   update:function(){
+    //damagedSkier.animations.add('flyingSkier',[0,1,2,3,4,5,6,7],10,true);
+    //damagedSkier.body.setSize(64,64,0,0);
+    //damagedSkier.body.velocity.y = -200;
     //make collision works
     //game.physics.arcade.collide(skierGroup,treeLayer);
     //game.physics.arcade.collide(skierGroup,treeLayer);
@@ -759,8 +771,10 @@ function snowCollideTrees(snowBall0,trees){
 
   if(numberOfCollisionsWithSkiers>0){
     numberOfCollisionsWithSkiers --;
+    damagedSkier.animations.play('flyingSkier');
     score -= 200;
     scoreText.text='Score:'+score;
+    damagedSkier.kill();
   }
 
 }
@@ -771,8 +785,10 @@ function snowCollideRocks(snowBall0,rocks){
 
   if(numberOfCollisionsWithSkiers>0){
     numberOfCollisionsWithSkiers --;
+   animateFlyingSkier();
     score -= 200;
     scoreText.text='Score:'+score;
+
   }
 
 }
@@ -781,4 +797,11 @@ function snowCollideRocks(snowBall0,rocks){
 function speedRetrieve(){
   iceTimer.stop();
   ifSpeed = 0;
+}
+
+function animateFlyingSkier(){
+  game.add.sprite(snowBall0.x, snowBall0.y, 'damagedSkierAtlas', 'Damage_01');
+  game.physics.enable(damagedSkier);
+  damagedSkier.animations.add('flyingSkier',[0,1,2,3,4,5,6,7],2,false);
+  damagedSkier.kill();
 }

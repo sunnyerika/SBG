@@ -232,7 +232,7 @@ Play.prototype = {
 
     else if(numberOfCollisionsWithSkiers == 1 &&ifSpeed ==0){
       snowBall0.animations.play('collide1');//skier collision animation
-      snowBall0.body.setSize(64,64,0,0);
+      snowBall0.body.setSize(80,80,0,10);
       snowBall0.body.velocity.y = -400;
       score +=1;
       scoreText.text='Score:'+score;
@@ -240,21 +240,21 @@ Play.prototype = {
     }
     else if(numberOfCollisionsWithSkiers ==2 && ifSpeed ==0){
       snowBall0.animations.play('collide2');
-      snowBall0.body.setSize(96,96,0,0);
+      snowBall0.body.setSize(110,110,0,15);
       snowBall0.body.velocity.y = -450;
       score +=1;
       scoreText.text='Score:'+score;
     }
     else if(numberOfCollisionsWithSkiers ==3 &&ifSpeed ==0){
-      snowBall0.animations.play('collide3', 10, true);
-      snowBall0.body.setSize(128,128,0,0);
+      snowBall0.animations.play('collide3');
+      snowBall0.body.setSize(180,180,30,50);
       snowBall0.body.velocity.y = -500;
       score +=1;
       scoreText.text='Score:'+score;
     }
     else if(numberOfCollisionsWithSkiers ==4 &&ifSpeed ==0){
       snowBall0.animations.play('collide4', 10, true);
-      snowBall0.body.setSize(256,256,25,30);
+      snowBall0.body.setSize(256,256,50,70);
       snowBall0.body.velocity.y = -550;
       score +=1;
       scoreText.text='Score:'+score;
@@ -262,19 +262,21 @@ Play.prototype = {
 
     else if(numberOfCollisionsWithSkiers ==5 &&ifSpeed ==0){
       snowBall0.animations.play('collide5', 10, true);
-      snowBall0.body.setSize(384,384,25,30);
+      snowBall0.body.setSize(384,384,40,50);
       snowBall0.body.velocity.y = -600;
       score +=1;
       scoreText.text='Score:'+score;
+    }else if(numberOfCollisionsWithSkiers >5){
+      numberOfCollisionsWithSkiers = 5;
     }
 
-    else if(numberOfCollisionsWithSkiers ==5 &&ifSpeed ==0){
+    /*else if(numberOfCollisionsWithSkiers ==5 &&ifSpeed ==0){
       snowBall0.animations.play('collide6', 10, true);
       snowBall0.body.setSize(512,512,25,30);
       snowBall0.body.velocity.y = -650;
       score +=1;
       scoreText.text='Score:'+score;
-    }
+    }*/
 
     /*
         else if(numberOfCollisionsWithSkiers >= 1 &&numberOfCollisionsWithSkiers <= 2&&ifSpeed ==0){
@@ -429,26 +431,39 @@ Play.prototype = {
     skierGroup.forEachAlive(function(n){
       //make player could collect skiers
       var distance = this.game.math.distance(n.x,n.y,snowBall0.x,snowBall0.y);
-      if(distance<=48&&numberOfCollisionsWithSkiers <= 2){
+      if(distance<=32&&numberOfCollisionsWithSkiers == 0){
         n.kill();
         numberOfCollisionsWithSkiers ++;
         score += 200;
         scoreText.text='Score:'+score;
         //getDiamond.play();
       }
-      if(distance<=80&&numberOfCollisionsWithSkiers >= 3&&numberOfCollisionsWithSkiers <= 5){
+      else if(distance<=48&&numberOfCollisionsWithSkiers == 1){
         n.kill();
         numberOfCollisionsWithSkiers ++;
         score += 200;
         scoreText.text='Score:'+score;
         //getDiamond.play();
-      }if(distance<=90&&numberOfCollisionsWithSkiers >= 6&&numberOfCollisionsWithSkiers <= 8){
+      }
+      else if(distance<=55&&numberOfCollisionsWithSkiers ==2){
         n.kill();
         numberOfCollisionsWithSkiers ++;
         score += 200;
         scoreText.text='Score:'+score;
         //getDiamond.play();
-      }if(distance<=220&&numberOfCollisionsWithSkiers >= 9){
+      }else if(distance<=70&&numberOfCollisionsWithSkiers ==3){
+        n.kill();
+        numberOfCollisionsWithSkiers ++;
+        score += 200;
+        scoreText.text='Score:'+score;
+        //getDiamond.play();
+      }else if(distance<=128&&numberOfCollisionsWithSkiers ==4){
+        n.kill();
+        numberOfCollisionsWithSkiers ++;
+        score += 200;
+        scoreText.text='Score:'+score;
+        //getDiamond.play();
+      }else if(distance<=256&&numberOfCollisionsWithSkiers ==5){
         n.kill();
         numberOfCollisionsWithSkiers ++;
         score += 200;
@@ -493,10 +508,10 @@ Play.prototype = {
 
 
   },
-  render:function(){
+  /*render:function(){
     game.debug.body(snowBall0);
     game.debug.body(skierGroup);
-  },
+  },*/
   launchSkier:function(x,y){
     //get the first dead diamond from the Diamond
     var skier = skierGroup.getFirstDead();
@@ -536,9 +551,9 @@ Play.prototype = {
     return minutes.substr(-2)+':'+seconds.substr(-2);
   },
 
-  hit:function(){
+  /*hit:function(){
     numberOfCollisions  ++;
-  }
+  }*/
 };
 
 
@@ -687,12 +702,12 @@ iceTimer.start();
   snowball.animations.add('rolling', [0,1,2]);
 }*/
 
-function snowCollideSkier(snowBall0,skier){
+/*function snowCollideSkier(snowBall0,skier){
   numberOfCollisionsWithSkiers ++;
   score += 200;
   scoreText.text='Score:'+score;
   skier.kill();
-}
+}*/
 function snowCollideTree(snowBall0,treeLayer){
   //score -= 100;
   booleanHitRock = true;

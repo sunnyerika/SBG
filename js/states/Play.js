@@ -365,7 +365,7 @@ Play.prototype = {
       score +=1;
       scoreText.text='Score:'+score;
     }
-    else if((numberOfCollisionsWithSkiers >=9|| numberOfCollisionsWithSkiers <=10)&&ifSpeed ==0){
+    else if((numberOfCollisionsWithSkiers >=9&& numberOfCollisionsWithSkiers <=10)&&ifSpeed ==0){
       snowBall0.animations.play('collide4', 10, true);
       snowBall0.body.setSize(160,160,25,30);
       snowBall0.body.velocity.y = -600;
@@ -792,6 +792,9 @@ function snowCollideTree(snowBall0,treeLayer){
     throwSkier.animations.play('flyingSkier',10,false);
     snowBall0.y += 200;
   }
+  if(numberOfCollisionsWithSkiers<0){
+    numberOfCollisionsWithSkiers = 0;
+  }
 
 }
 function snowCollideTrees(snowBall0,trees){
@@ -811,7 +814,11 @@ function snowCollideTrees(snowBall0,trees){
     throwSkier.animations.play('flyingSkier',10,false);
     snowBall0.y += 200;
     snowBall0.x +=10;
+
     //damagedSkier.kill();
+  }
+  if(numberOfCollisionsWithSkiers<0){
+    numberOfCollisionsWithSkiers = 0;
   }
 
 }
@@ -831,7 +838,9 @@ function snowCollideRocks(snowBall0,rocks){
     snowBall0.x +=10;
 
   }
-
+  if(numberOfCollisionsWithSkiers<0){
+    numberOfCollisionsWithSkiers = 0;
+  }
 }
 
 

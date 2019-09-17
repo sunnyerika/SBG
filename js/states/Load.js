@@ -1,6 +1,8 @@
 //Load state
 
-var Load = function(game){};
+var Load = function(game){
+	
+};
 Load.prototype ={
   preload:function(){
 
@@ -8,7 +10,6 @@ Load.prototype ={
     game.load.path = 'assets/';
     //game.load.atlas('atlas','img/cloneSheet.png','img/cloneSheet.json');
     //load tilemap
-
     game.load.tilemap('mapSheet','img/newLongMap.json',null,Phaser.Tilemap.TILED_JSON);//little trees with rocks - all obsticles
     game.load.image('mapSprite','img/TileSet2.png',32,32);
     //load player, fish, diamond, bullet assets
@@ -47,8 +48,11 @@ Load.prototype ={
   },
   create:function(){
     //create a text which renders that the game is loading
+
+    
     var loadText = game.add.text(600,100,'Loading...',{font:'Helvetica',fontSize:'24px',fill:'#fff'});
     loadText.anchor.set(0.5);
     game.state.start('Menu');
   }
+
 };

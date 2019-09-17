@@ -233,7 +233,7 @@ Play.prototype = {
     else if(numberOfCollisionsWithSkiers == 1 &&ifSpeed ==0){
       snowBall0.animations.play('collide1');//skier collision animation
       snowBall0.body.setSize(80,80,0,10);
-      snowBall0.body.velocity.y = -400;
+      snowBall0.body.velocity.y = -550;
       score +=1;
       scoreText.text='Score:'+score;
 
@@ -241,21 +241,21 @@ Play.prototype = {
     else if(numberOfCollisionsWithSkiers ==2 && ifSpeed ==0){
       snowBall0.animations.play('collide2');
       snowBall0.body.setSize(110,110,0,15);
-      snowBall0.body.velocity.y = -450;
+      snowBall0.body.velocity.y = -750;
       score +=1;
       scoreText.text='Score:'+score;
     }
     else if(numberOfCollisionsWithSkiers ==3 &&ifSpeed ==0){
       snowBall0.animations.play('collide3');
       snowBall0.body.setSize(180,180,30,50);
-      snowBall0.body.velocity.y = -500;
+      snowBall0.body.velocity.y = -950;
       score +=1;
       scoreText.text='Score:'+score;
     }
     else if(numberOfCollisionsWithSkiers ==4 &&ifSpeed ==0){
       snowBall0.animations.play('collide4', 10, true);
       snowBall0.body.setSize(256,256,50,70);
-      snowBall0.body.velocity.y = -550;
+      snowBall0.body.velocity.y = -1150;
       score +=1;
       scoreText.text='Score:'+score;
     }
@@ -263,7 +263,7 @@ Play.prototype = {
     else if(numberOfCollisionsWithSkiers ==5 &&ifSpeed ==0){
       snowBall0.animations.play('collide5', 10, true);
       snowBall0.body.setSize(384,384,40,50);
-      snowBall0.body.velocity.y = -600;
+      snowBall0.body.velocity.y = -1350;
       score +=1;
       scoreText.text='Score:'+score;
     }else if(numberOfCollisionsWithSkiers >5){

@@ -336,14 +336,14 @@ Play.prototype = {
 
     if(numberOfCollisionsWithSkiers == 0 && ifSpeed == 0 && !booleanHitRock) {
       snowBall0.animations.play('snowBallRolling');
-      snowBall0.body.setSize(32,32,0,0);
+      snowBall0.body.setSize(64,64,0,0);
       snowBall0.body.velocity.y = -200;
       score +=1;
       scoreText.text='Score:'+score;
 
     }
 
-    else if(numberOfCollisionsWithSkiers === 1&&ifSpeed ==0){
+    else if(numberOfCollisionsWithSkiers >= 1 &&numberOfCollisionsWithSkiers <= 2&&ifSpeed ==0){
       snowBall0.animations.play('collide1');//skier collision animation
       snowBall0.body.setSize(50,50,10,10);
       snowBall0.body.velocity.y = -300;
@@ -351,23 +351,23 @@ Play.prototype = {
       scoreText.text='Score:'+score;
 
     }
-    else if(numberOfCollisionsWithSkiers ===2 &&ifSpeed ==0){
+    else if(numberOfCollisionsWithSkiers >=3&&numberOfCollisionsWithSkiers<=5 &&ifSpeed ==0){
       snowBall0.animations.play('collide2');
       snowBall0.body.setSize(90,90,20,15);
       snowBall0.body.velocity.y = -400;
       score +=1;
       scoreText.text='Score:'+score;
     }
-    else if(numberOfCollisionsWithSkiers ===3&&ifSpeed ==0){
+    else if(numberOfCollisionsWithSkiers >=6&&numberOfCollisionsWithSkiers<=8 &&ifSpeed ==0){
       snowBall0.animations.play('collide3', 10, true);
-      snowBall0.body.setSize(180,180,40,40);
+      snowBall0.body.setSize(100,100,26,30);
       snowBall0.body.velocity.y = -500;
       score +=1;
       scoreText.text='Score:'+score;
     }
-    else if((numberOfCollisionsWithSkiers == 9|| numberOfCollisionsWithSkiers ==10)&&ifSpeed ==0){
+    else if((numberOfCollisionsWithSkiers >=9|| numberOfCollisionsWithSkiers <=10)&&ifSpeed ==0){
       snowBall0.animations.play('collide4', 10, true);
-      snowBall0.body.setSize(440,440,25,30);
+      snowBall0.body.setSize(160,160,25,30);
       snowBall0.body.velocity.y = -600;
       score +=1;
       scoreText.text='Score:'+score;
@@ -502,13 +502,26 @@ Play.prototype = {
           scoreText.text='Score:'+score;
           //getDiamond.play();
         }
-        if(distance<=60&&numberOfCollisionsWithSkiers >= 3&&numberOfCollisionsWithSkiers <= 5){
+        if(distance<=80&&numberOfCollisionsWithSkiers >= 3&&numberOfCollisionsWithSkiers <= 5){
           n.kill();
           numberOfCollisionsWithSkiers ++;
           score += 200;
           scoreText.text='Score:'+score;
           //getDiamond.play();
-        }else if(distance>=900){
+        }if(distance<=90&&numberOfCollisionsWithSkiers >= 6&&numberOfCollisionsWithSkiers <= 8){
+          n.kill();
+          numberOfCollisionsWithSkiers ++;
+          score += 200;
+          scoreText.text='Score:'+score;
+          //getDiamond.play();
+        }if(distance<=220&&numberOfCollisionsWithSkiers >= 9){
+          n.kill();
+          numberOfCollisionsWithSkiers ++;
+          score += 200;
+          scoreText.text='Score:'+score;
+          //getDiamond.play();
+        }
+        else if(distance>=900){
           n.kill();
         }
       },this);
@@ -657,7 +670,7 @@ function winner(snowBall0,floor){
 
 function iceSpeed(snowball,lake){
   ifSpeed = 1;
-  snowball.body.velocity.y = -400;
+  snowball.body.velocity.y = -600;
   //snowBall0.body.velocity.y = -600;
 
   //collision = true;

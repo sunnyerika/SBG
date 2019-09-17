@@ -12,7 +12,7 @@ Ready.prototype = {
 		//start the timer
 		timer.start();
 		if(timer.running){
-			var readyText = game.add.text(game.width/2,game.height/2,'Game Starts in 2 Seconds',{font:'Helvetica',fontSize:'48px',fill:'#fff'});
+			var readyText = game.add.text(game.width/2,game.height/2,'Game is loading',{font:'Helvetica',fontSize:'48px',fill:'#fff'});
 			readyText.anchor.set(0.5);
 		}
 

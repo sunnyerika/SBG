@@ -20,6 +20,7 @@ Load.prototype ={
     game.load.atlas('snowBallAtlasNew','img/snowBallAtlasNew.png','img/snowBallAtlasNew.json');
     game.load.atlas('snowBallAtlasHuge','img/snowBallAtlasHuge.png','img/snowBallAtlasHuge.json');
     game.load.atlas('damagedSkierAtlas','img/damagedSkierAtlas.png','img/damagedSkierAtlas.json');
+    game.load.atlas('newSnowballAtlas','img/newSnowballAtlas.png','img/newSnowballAtlas.json');
     game.load.spritesheet('snowBallAnimation0', 'img/snowBallAnimation0.png', 32, 32);//width and height of each frame
     game.load.spritesheet('snowBallAnimation1', 'img/Size1.png', 64, 64);
     game.load.spritesheet('snowBallAnimation2', 'img/Size2.png', 128, 128);
@@ -33,11 +34,14 @@ Load.prototype ={
     game.load.image('finishLine','img/Finish_Line.png');
     game.load.image('lake','img/lake.png');
     game.load.image('100','img/100.png');
+    game.load.image('cabinetArt','img/Cabinet_Art.png');
+
     game.load.audio('deathSound','audio/deathSound.mp3');
     game.load.audio('hitTreeRock','audio/hitTreeRock.mp3');
     game.load.audio('flyingSkier','audio/flyingSkier.mp3');
     game.load.audio('mainTheme','audio/mainTheme.mp3');
     game.load.audio('skierGetsRolledUp','audio/skierGetsRolledUp.mp3');
+    game.load.audio('skierFly2','audio/fly2.mp3');
 
 
     //game.load.image('rectangle','img/rectangle.png');

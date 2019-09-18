@@ -68,6 +68,7 @@ var soundFlyingSkier;
 var soundMainTheme;
 var soundDeath;
 var soundSkierGetsRolledUp;
+var soundFly2;
 var treesArray;
 var rocksArray;
 var skierArray;
@@ -163,7 +164,7 @@ Play.prototype = {
     //snowball.anchor.setTo(1,1);
 
     //snowBall0 = game.add.sprite(600, 3500, 'snowBallAnimation0');//x, y, key, displaying the first frame by default
-    snowBall0 = game.add.sprite(1280, 75800, 'snowBallAtlasHuge','Snow_ball_0_01');
+    snowBall0 = game.add.sprite(1280, 75500, 'newSnowballAtlas','Snowball 0-1');
     game.physics.enable(snowBall0);
     snowBall0.body.collideWorldBounds = true;
     snowBall0.anchor.setTo(0.5,0.5);
@@ -173,7 +174,7 @@ Play.prototype = {
     snowBall0.animations.add('collide3',[9,10,11],10,true);
     snowBall0.animations.add('collide4',[12,13,14],10,true);
     snowBall0.animations.add('collide5',[15,16,17],10,true);
-    snowBall0.animations.add('collide6',[18,19,20],10,true);
+    snowBall0.animations.add('snowBallDeath',[18,19,20],10,true);
 
     damagedSkier = game.add.group();
     game.physics.enable(damagedSkier);
@@ -321,6 +322,8 @@ Play.prototype = {
       snowBall0.body.velocity.y = -870;
       score +=1;
       scoreText.text='Score:'+score;
+
+
     }else if(numberOfCollisionsWithSkiers >5){
       numberOfCollisionsWithSkiers = 5;
     }

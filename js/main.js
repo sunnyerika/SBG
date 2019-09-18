@@ -5,7 +5,7 @@ var boy = null;
 window.onload = function(){
   //define game
 
-  game = new Phaser.Game(1100,1080,Phaser.AUTO,'game');
+  game = new Phaser.Game(1100,900,Phaser.AUTO,'game');
 
   //define states
   game.state.add('Load',Load);

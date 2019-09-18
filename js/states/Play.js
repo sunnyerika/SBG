@@ -50,6 +50,9 @@ var damagedSkier;
 //var snowBall2;
 //var snowBall3;
 //var collision = false;
+var treesArray;
+var rocksArray;
+var skierArray;
 
 
 
@@ -64,6 +67,17 @@ var booleanHitRock = false;
 var updateCollision = false;
 var soundTreeRock;
 var soundFlyingSkier;
+var soundMainTheme;
+var soundDeath;
+var soundSkierGetsRolledUp;
+
+const SPRITETYPE = {
+  tree: true,
+  rock: true,
+  skier: true
+};
+
+const spriteType = null;
 
 
 var Play = function(game){
@@ -86,6 +100,9 @@ Play.prototype = {
     map.addTilesetImage('TileSet2','mapSprite',32,32); //x2 //64x64 for the lake
     //level = mapElements/mapSprite
     // map = mapsheet
+
+  //soundMainTheme = game.audio.add ('mainTheme', 0.5, true);
+   // soundMainTheme = new Phaser.Sound(game, 'mainTheme', 1, true);
 
 
 
@@ -152,6 +169,10 @@ Play.prototype = {
 
     soundTreeRock = game.add.audio('hitTreeRock');
     soundFlyingSkier = game.add.audio('flyingSkier');
+    soundDeath = game.add.audio('deathSound');
+    soundSkierGetsRolledUp = game.add.audio('skierGetsRolledUp');
+    soundMainTheme = game.add.audio('mainTheme', 0.2, true);
+    soundMainTheme.play();
 
 
 
@@ -219,10 +240,14 @@ Play.prototype = {
     game.scale.pageAlignVertically = true;
     game.scale.refresh();
 
+
     updateCollision = false;
 
     game.physics.arcade.collide(snowBall0,treeLayer,snowCollideTree,null,this);
     game.physics.arcade.collide(snowBall0,trees,snowCollideTrees,null,this);
+
+
+
     if(numberOfCollisionsWithSkiers<=2){
       game.physics.arcade.collide(snowBall0,rocks,snowCollideRocks,null,this);
     }
@@ -587,6 +612,7 @@ var Skier = function(game,x,y){
   //define constants
   this.body.velocity.y = -200;
 
+
 };
 
 var StaticSprite = function(game,x,y){
@@ -808,4 +834,11 @@ function animateFlyingSkier(){
   damagedSkier.animations.add('flyingSkier',[0,1,2,3,4,5,6,7],2,false);
 
   //damagedSkier.kill();
+}
+
+function getSpriteID (snowball, spriteGroup){
+  spriteGroup.forEachAlive(function(n){
+
+
+  }, this);
 }

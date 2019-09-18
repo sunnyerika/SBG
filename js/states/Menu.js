@@ -27,6 +27,10 @@ Menu.prototype = {
 
   },
   update:function(){
+    game.scale.pageAlignHorizontally = true;
+    game.scale.pageAlignVertically = true;
+    game.scale.refresh();
+
     //check for SPACEBAR input
     if(game.input.keyboard.justPressed(Phaser.Keyboard.F)){
       game.state.start('Ready');

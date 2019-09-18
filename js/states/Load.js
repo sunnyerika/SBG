@@ -33,9 +33,11 @@ Load.prototype ={
     game.load.image('finishLine','img/Finish_Line.png');
     game.load.image('lake','img/lake.png');
     game.load.image('100','img/100.png');
-    game.load.audio('deathSound','audio/deathSound.wav');
-    game.load.audio('hitTreeRock','audio/hitTreeRock.wav');
+    game.load.audio('deathSound','audio/deathSound.mp3');
+    game.load.audio('hitTreeRock','audio/hitTreeRock.mp3');
     game.load.audio('flyingSkier','audio/flyingSkier.mp3');
+    game.load.audio('mainTheme','audio/mainTheme.mp3');
+    game.load.audio('skierGetsRolledUp','audio/skierGetsRolledUp.mp3');
 
 
     //game.load.image('rectangle','img/rectangle.png');

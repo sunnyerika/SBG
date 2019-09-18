@@ -30,7 +30,9 @@ Ready.prototype = {
 
   },
   update:function(){
-
+    game.scale.pageAlignHorizontally = true;
+    game.scale.pageAlignVertically = true;
+    game.scale.refresh();
   },
 
   endTimer:function(){

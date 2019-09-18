@@ -50,9 +50,7 @@ var damagedSkier;
 //var snowBall2;
 //var snowBall3;
 //var collision = false;
-var treesArray;
-var rocksArray;
-var skierArray;
+
 
 
 
@@ -70,6 +68,12 @@ var soundFlyingSkier;
 var soundMainTheme;
 var soundDeath;
 var soundSkierGetsRolledUp;
+var treesArray;
+var rocksArray;
+var skierArray;
+
+var debugText;
+
 
 const SPRITETYPE = {
   tree: true,
@@ -77,7 +81,14 @@ const SPRITETYPE = {
   skier: true
 };
 
-const spriteType = null;
+
+//var collision = false;
+var arrayIDtree;
+var treesArray;
+var rocksArray;
+var skierArray;
+
+var debugText;
 
 
 var Play = function(game){
@@ -470,12 +481,15 @@ Play.prototype = {
 
     if(skierGroup.countLiving()<maxSkier){
       //set the launch point to a random location
-      this.launchSkier(game.rnd.integerInRange(500,2000),snowBall0.y-800);
+      this.launchSkier(game.rnd.integerInRange(500,1000),snowBall0.y-800);
+      this.launchSkier(game.rnd.integerInRange(1200,2000),snowBall0.y-800);
     }
+
     skierGroup.forEachAlive(function(n){
       //make player could collect skiers
       var distance = this.game.math.distance(n.x,n.y,snowBall0.x,snowBall0.y);
       if(distance<=32&&numberOfCollisionsWithSkiers == 0){
+        soundSkierGetsRolledUp.play();
         n.kill();
         numberOfCollisionsWithSkiers ++;
         score += 200;
@@ -483,6 +497,7 @@ Play.prototype = {
         //getDiamond.play();
       }
       else if(distance<=48&&numberOfCollisionsWithSkiers == 1){
+        soundSkierGetsRolledUp.play();
         n.kill();
         numberOfCollisionsWithSkiers ++;
         score += 200;
@@ -490,24 +505,28 @@ Play.prototype = {
         //getDiamond.play();
       }
       else if(distance<=55&&numberOfCollisionsWithSkiers ==2){
+        soundSkierGetsRolledUp.play();
         n.kill();
         numberOfCollisionsWithSkiers ++;
         score += 200;
         scoreText.text='Score:'+score;
         //getDiamond.play();
       }else if(distance<=70&&numberOfCollisionsWithSkiers ==3){
+        soundSkierGetsRolledUp.play();
         n.kill();
         numberOfCollisionsWithSkiers ++;
         score += 200;
         scoreText.text='Score:'+score;
         //getDiamond.play();
       }else if(distance<=128&&numberOfCollisionsWithSkiers ==4){
+        soundSkierGetsRolledUp.play();
         n.kill();
         numberOfCollisionsWithSkiers ++;
         score += 200;
         scoreText.text='Score:'+score;
         //getDiamond.play();
       }else if(distance<=256&&numberOfCollisionsWithSkiers ==5){
+        soundSkierGetsRolledUp.play();
         n.kill();
         numberOfCollisionsWithSkiers ++;
         score += 200;
@@ -777,7 +796,7 @@ function snowCollideTrees(snowBall0,trees){
   trees.body.immovable = true;
   trees.body.moves = false;
   booleanHitRock = true;
-  soundFlyingSkier.play();
+
 
   if(numberOfCollisionsWithSkiers>0){
     numberOfCollisionsWithSkiers --;
@@ -787,6 +806,7 @@ function snowCollideTrees(snowBall0,trees){
     var throwSkier = damagedSkier.create(snowBall0.x+10,snowBall0.y,'damagedSkierAtlas','Damage_01');
     throwSkier.animations.add('flyingSkier',[0,1,2,3,4,5,6,7],10,true);
     throwSkier.animations.play('flyingSkier',10,false, false);
+    soundFlyingSkier.play();
     snowBall0.y -= 100;
     snowBall0.x +=40;
 
@@ -810,7 +830,7 @@ function snowCollideRocks(snowBall0,rocks){
     var throwSkier = damagedSkier.create(snowBall0.x+10,snowBall0.y,'damagedSkierAtlas','Damage_01');
     throwSkier.animations.add('flyingSkier',[0,1,2,3,4,5,6,7],10,false);
     throwSkier.animations.play('flyingSkier',10,false);
-
+    soundFlyingSkier.play();
     snowBall0.y -= 100;
     snowBall0.x +=40;
 
@@ -838,7 +858,14 @@ function animateFlyingSkier(){
 
 function getSpriteID (snowball, spriteGroup){
   spriteGroup.forEachAlive(function(n){
-
+    //collided
+    debugText = n.data.toString();
 
   }, this);
+}
+
+function render() {
+
+  game.debug.text(debugText, 10, 20);
+
 }

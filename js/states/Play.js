@@ -62,6 +62,8 @@ var snowBallAtlas;
 var booleanHitRock = false;
 
 var updateCollision = false;
+var soundTreeRock;
+var soundFlyingSkier;
 
 
 var Play = function(game){
@@ -148,6 +150,11 @@ Play.prototype = {
     damagedSkier = game.add.group();
     game.physics.enable(damagedSkier);
 
+    soundTreeRock = game.add.audio('hitTreeRock');
+    soundFlyingSkier = game.add.audio('flyingSkier');
+
+
+
     game.camera.follow(snowBall0);
     game.camera.roundPixels = true;
 
@@ -208,6 +215,10 @@ Play.prototype = {
 
 
   update:function(){
+    game.scale.pageAlignHorizontally = true;
+    game.scale.pageAlignVertically = true;
+    game.scale.refresh();
+
     updateCollision = false;
 
     game.physics.arcade.collide(snowBall0,treeLayer,snowCollideTree,null,this);
@@ -740,6 +751,7 @@ function snowCollideTrees(snowBall0,trees){
   trees.body.immovable = true;
   trees.body.moves = false;
   booleanHitRock = true;
+  soundFlyingSkier.play();
 
   if(numberOfCollisionsWithSkiers>0){
     numberOfCollisionsWithSkiers --;
@@ -748,7 +760,7 @@ function snowCollideTrees(snowBall0,trees){
     scoreText.text='Score:'+score;
     var throwSkier = damagedSkier.create(snowBall0.x+10,snowBall0.y,'damagedSkierAtlas','Damage_01');
     throwSkier.animations.add('flyingSkier',[0,1,2,3,4,5,6,7],10,true);
-    throwSkier.animations.play('flyingSkier',10,false);
+    throwSkier.animations.play('flyingSkier',10,false, false);
     snowBall0.y -= 100;
     snowBall0.x +=40;
 

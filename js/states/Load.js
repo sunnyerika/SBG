@@ -1,7 +1,7 @@
 //Load state
 
 var Load = function(game){
-	
+
 };
 Load.prototype ={
   preload:function(){
@@ -33,7 +33,9 @@ Load.prototype ={
     game.load.image('finishLine','img/Finish_Line.png');
     game.load.image('lake','img/lake.png');
     game.load.image('100','img/100.png');
-
+    game.load.audio('deathSound','audio/deathSound.wav');
+    game.load.audio('hitTreeRock','audio/hitTreeRock.wav');
+    game.load.audio('flyingSkier','audio/flyingSkier.mp3');
 
 
     //game.load.image('rectangle','img/rectangle.png');
@@ -50,7 +52,7 @@ Load.prototype ={
   create:function(){
     //create a text which renders that the game is loading
 
-    
+
     var loadText = game.add.text(600,100,'Loading...',{font:'Helvetica',fontSize:'24px',fill:'#fff'});
     loadText.anchor.set(0.5);
     game.state.start('Menu');
